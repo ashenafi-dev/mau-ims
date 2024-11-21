@@ -1,0 +1,45 @@
+.Header {
+  height: 5dvw;
+  /* border: 2px dotted gray; */
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+
+  background-color: rgb(200, 200, 200, 0.25);
+  border-radius: 25px;
+}
+
+.logo {
+  height: 80%;
+  width: 5%;
+  /* border: 2px dotted gray; */
+
+  display: flex;
+  justify-content: center;
+}
+
+.logo img {
+  height: 100%;
+}
+
+.navbar {
+  width: 50%;
+  display: flex;
+  list-style: none;
+  justify-content: space-evenly;
+
+  /* border: 2px dotted gray; */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.theme {
+  width: 15%;
+
+  /* border: 2px dotted gray; */
+}

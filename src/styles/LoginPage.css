@@ -1,0 +1,27 @@
+/* Container for the login form */
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+
+  /* border: 2px dotted gray; */
+}
+
+/* Credential form styling */
+.credential {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 15px;
+  height: 75%;
+  width: 350px;
+  background-color: rgba(200, 200, 200, 0.25);
+  border-radius: 25px;
+  /* border: 2px dotted gray; */
+}
+
+/* Button styling */
+.credential button {
+  width: 50px;
+}

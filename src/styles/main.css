@@ -1,0 +1,8 @@
+:root {
+  max-width: 1444px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: rgb(235, 235, 235);
+
+  border: 2px dotted gray;
+}
