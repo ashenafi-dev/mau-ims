@@ -1,8 +1,9 @@
 :root {
   max-width: 1444px;
   margin: 0 auto;
-  padding: 1rem;
+
+  padding: 0.5rem; /* 8px */
   background-color: rgb(235, 235, 235);
 
-  border: 2px dotted gray;
+  /* border: 1px dotted gray; */
 }

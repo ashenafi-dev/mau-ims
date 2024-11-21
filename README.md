@@ -1,9 +1,9 @@
 Creating a comprehensive README file is crucial for explaining the purpose, setup, usage, and other important details of your React project. Below is a template that you can customize to fit the specifics of your project. This example assumes you're working on a project involving authentication using JWT, React, and possibly Express on the backend.
 
 ````markdown
-# Your Project Name
+# MAU Inventory Management System
 
-## Description
+## Description ....
 
 A brief description of your project. Include the main goals and features of the application.
 
