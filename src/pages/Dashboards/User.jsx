@@ -1,16 +1,6 @@
-import "../../styles/dashboard.css";
+import { Dashboard } from "../../components/Dashboard";
+// import { userMenuList } from "./MenuList";
+
 export default function User() {
   return <Dashboard />;
-}
-
-function Dashboard() {
-  return (
-    <div className="dashboard">
-      <div className="sidebar"></div>
-      <div className="content">
-        <div className="content--header"></div>
-        <div className="content--body"></div>
-      </div>
-    </div>
-  );
 }

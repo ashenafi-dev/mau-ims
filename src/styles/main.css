@@ -6,4 +6,47 @@
   background-color: rgb(235, 235, 235);
 
   /* border: 1px dotted gray; */
+
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+
+button {
+  all: unset; /* Resets all properties to their initial value */
+  display: inline-block; /* Ensures the button retains its block-like behavior */
+  cursor: pointer; /* Ensures the button shows a pointer cursor */
+  background: transparent; /* Removes any background */
+  border: none; /* Removes the border */
+  padding: 0; /* Removes padding */
+  margin: 0; /* Removes margin */
+  text-decoration: none; /* Removes text decoration */
+  font: inherit; /* Inherits font styling from parent */
+  color: inherit; /* Inherits text color from parent */
+  outline: none; /* Removes the outline */
+}
+
+/* Reset link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Reset list styles */
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
+
+svg {
+  height: 25px;
+  width: 25px;
 }

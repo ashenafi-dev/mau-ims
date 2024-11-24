@@ -13,7 +13,6 @@ function LoginPage() {
 
 function CredentialField() {
   const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -37,7 +36,11 @@ function CredentialField() {
     const matchedUser = matchData(username);
 
     if (matchedUser && matchedUser.password === password) {
-      console.log("Role:", matchedUser.role);
+      // Store the user data in local storage
+      localStorage.setItem("userData", JSON.stringify(matchedUser));
+
+      // console.log("Role:", matchedUser.role);
+      // console.log(typeof matchedUser.username);
       switch (matchedUser.role) {
         case "user":
           navigate("/User");

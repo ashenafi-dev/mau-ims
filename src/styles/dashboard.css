@@ -1,12 +1,12 @@
 .dashboard {
-  height: calc(100dvh - (0.5rem * 4));
+  height: calc(100dvh - (0.5rem * 4)); /* 100dvh - 32px - 32px???*/
   width: 100%;
 
   border-radius: 1.25rem; /* 25px */
 
   display: grid;
   grid-template-columns: 15% 1fr;
-  gap: 16px;
+  gap: 1rem; /*16px*/
 }
 
 .sidebar {
@@ -15,6 +15,38 @@
 
   border-radius: 1.25rem; /* 25px */
   background-color: rgb(200, 200, 200, 0.25);
+
+  display: grid;
+  grid-template-rows: 12.5% 1fr 12.5%;
+  gap: 1rem; /*16px*/
+}
+
+.sidebar--middle {
+  /* background-color: rgb(92, 10, 117); */
+  border-radius: 1.25rem; /* 25px */
+  padding: 1rem;
+}
+
+.sidebar--bottom {
+  border: 2px dotted gray;
+
+  display: flex;
+
+  gap: 1rem; /*16px*/
+}
+
+.sidebar--top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+
+  background-color: rgba(130, 20, 180, 0.1);
+  border-radius: 1rem; /* 25px */
+  margin: 0.35rem 0.75rem;
+  box-shadow: 2px 2px 5px grey;
+
+  cursor: default;
 }
 
 .content {
@@ -22,8 +54,8 @@
   height: 100%;
 
   display: grid;
-  grid-template-rows: 15% 1fr;
-  gap: 16px;
+  grid-template-rows: 12.5% 1fr;
+  gap: 1rem; /*16px*/
 }
 
 .content--header {
@@ -32,6 +64,9 @@
 
   border-radius: 1.25rem; /* 25px */
   background-color: rgb(200, 200, 200, 0.25);
+
+  display: flex;
+  justify-content: center;
 }
 .content--body {
   width: 100%;
@@ -39,4 +74,35 @@
 
   border-radius: 1.25rem; /* 25px */
   background-color: rgb(200, 200, 200, 0.25);
+}
+
+.sidebar--top img {
+  max-width: 50%;
+  max-height: 50%;
+  display: block; /* Ensure the image is displayed as a block-level element */
+}
+
+.sidebar--top p {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.sidebar--bottom svg {
+  height: 65%;
+  width: 65%;
+}
+
+.menu--list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sun--moon {
+  display: flex;
+  gap: 0.5rem;
+  border: 2px dotted gray;
 }
