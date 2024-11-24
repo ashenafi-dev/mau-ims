@@ -1,4 +1,6 @@
 import { Dashboard } from "../../components/Dashboard";
-export default function Manager() {
-  return <Dashboard />;
+import { managerMenuList } from "../../components/MenuList";
+
+export default function Staff() {
+  return <Dashboard menu={managerMenuList} />;
 }

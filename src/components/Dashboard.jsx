@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../styles/dashboard.css";
-import { staffMenuList } from "./MenuList";
 import { sun, moon, arrow, profile, bell } from "./Svg";
 
-export function Dashboard() {
+export function Dashboard({ menu }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -22,25 +22,25 @@ export function Dashboard() {
           <img src={logo} alt="Logo" />
           <p>mau inventory</p>
         </Link>
-        <di className="sidebar--middle">
+        <div className="sidebar--middle">
           <ul className="menu--list">
-            {staffMenuList.map((list) => (
-              <li key={list}>
+            {menu.map((item, index) => (
+              <li key={index}>
                 <button>
-                  {list.icon}
-                  {list.name}
+                  {item.icon}
+                  {item.name}
                 </button>
               </li>
             ))}
           </ul>
-        </di>
-        <di className="sidebar--bottom">
+        </div>
+        <div className="sidebar--bottom">
           <button className="sun--moon">
             {sun}
             {moon}
           </button>
           <button className="resize--sidebar">{arrow}</button>
-        </di>
+        </div>
       </div>
       <div className="content">
         <div className="content--header">
@@ -50,8 +50,7 @@ export function Dashboard() {
 
           {user ? (
             <p>
-              || name: {user.first_name} {user.last_name} || role: {user.role}{" "}
-              ||
+              name: {user.first_name} {user.last_name} role: {user.role}{" "}
             </p>
           ) : (
             <p>Loading...</p>
@@ -62,3 +61,12 @@ export function Dashboard() {
     </div>
   );
 }
+
+Dashboard.propTypes = {
+  menu: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.object.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
