@@ -53,7 +53,7 @@ export function Dashboard({ menu }) {
   return (
     <div className="dashboard">
       <div className="sidebar">
-        <Link className="sidebar--top">
+        <Link className="sidebar--top" to="/">
           <img src={logo} alt="Logo" />
           <p>mau inventory</p>
         </Link>

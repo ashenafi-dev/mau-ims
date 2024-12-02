@@ -1,3 +1,4 @@
+// src/contexts/AuthContext.jsx
 import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import api from "../services/api";
@@ -20,9 +21,8 @@ const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     const response = await api.post("/auth/login", { username, password });
-    const { token, refreshToken } = response.data;
+    const { token } = response.data;
     setToken(token);
-    localStorage.setItem("refreshToken", refreshToken);
     const decoded = jwtDecode(token);
     setUser({ token, role: decoded.role, username: decoded.username });
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -30,7 +30,6 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     removeToken();
-    localStorage.removeItem("refreshToken");
     setUser(null);
     api.defaults.headers.common["Authorization"] = "";
   };
