@@ -1,11 +1,13 @@
-import { useState } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
+// src/components/Dashboard.jsx
+import { useState, useContext } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../styles/dashboard.css";
 import { sun, moon, arrow, profile, bell } from "./Svg";
-import axios from "axios";
+import api from "../services/api";
 import { jwtDecode } from "jwt-decode";
+import { AuthContext } from "../contexts/AuthContext"; // Import AuthContext
 
 export function Dashboard({ menu }) {
   const [product, setProduct] = useState({
@@ -26,24 +28,12 @@ export function Dashboard({ menu }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/products",
-        product
-      );
+      const response = await api.post("/products", product);
       console.log(response.data);
     } catch (error) {
       console.error("Error adding product:", error);
     }
   };
-
-  // const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   const storedUserData = localStorage.getItem("userData");
-  //   if (storedUserData) {
-  //     setUser(JSON.parse(storedUserData));
-  //   }
-  // }, []);
 
   const [active, setActive] = useState(true);
   function handleThemeClick() {
@@ -51,7 +41,14 @@ export function Dashboard({ menu }) {
   }
 
   const token = localStorage.getItem("token");
-  const decodedToken = jwtDecode(token); // Decode the token to get user details
+  const decodedToken = jwtDecode(token);
+
+  const { logout } = useContext(AuthContext); // Destructure logout from AuthContext
+
+  const handleLogoutClick = () => {
+    logout();
+    window.location.href = "/login"; // Redirect to login after logging out
+  };
 
   return (
     <div className="dashboard">
@@ -78,6 +75,8 @@ export function Dashboard({ menu }) {
             <div className={active ? "" : "active--theme"}>{moon}</div>
           </button>
           <button className="arrow">{arrow}</button>
+          <button onClick={handleLogoutClick}>Logout</button>{" "}
+          {/* Add Logout Button */}
         </div>
       </div>
       <div className="content">

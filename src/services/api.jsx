@@ -1,4 +1,3 @@
-// api.js
 import axios from "axios";
 import { getToken, setToken, removeToken } from "./tokenService";
 
@@ -25,13 +24,20 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
       try {
         const refreshToken = localStorage.getItem("refreshToken");
-        const response = await axios.post("/auth/refresh-token", {
-          refreshToken,
-        });
+        const response = await axios.post(
+          "http://localhost:5000/auth/refresh-token",
+          {
+            refreshToken,
+          }
+        );
         setToken(response.data.token);
         axios.defaults.headers.common[
           "Authorization"
@@ -39,8 +45,8 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (e) {
         removeToken();
+        console.error("Failed to refresh token:", e);
         window.location.href = "/login";
-        console.log(e);
       }
     }
     return Promise.reject(error);
