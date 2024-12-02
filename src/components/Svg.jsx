@@ -1,4 +1,4 @@
-const moon = (
+const sun = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -15,7 +15,7 @@ const moon = (
   </svg>
 );
 
-const sun = (
+const moon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -54,7 +54,7 @@ const home = (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    strokeWidth={0.75}
+    strokeWidth={1.75}
     stroke="currentColor"
     className="size-6"
   >

@@ -1,39 +1,69 @@
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Knewave&family=Quicksand:wght@300;700&display=swap");
+
+/* General Box-Sizing Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
+  /* Restrict the maximum width and center the content */
   max-width: 1444px;
   margin: 0 auto;
 
+  /* Apply font and color styles */
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(34, 34, 34, 0.65);
+
+  /* Padding and background color */
   padding: 0.5rem; /* 8px */
   background-color: rgb(235, 235, 235);
 
   /* border: 1px dotted gray; */
+}
 
-  font-family: "Quicksand", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 100;
-  font-style: normal;
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li {
+  margin: 0;
+  padding: 0;
 }
 
 button {
-  all: unset; /* Resets all properties to their initial value */
-  display: inline-block; /* Ensures the button retains its block-like behavior */
-  cursor: pointer; /* Ensures the button shows a pointer cursor */
-  background: transparent; /* Removes any background */
-  border: none; /* Removes the border */
-  padding: 0; /* Removes padding */
-  margin: 0; /* Removes margin */
-  text-decoration: none; /* Removes text decoration */
-  font: inherit; /* Inherits font styling from parent */
-  color: inherit; /* Inherits text color from parent */
-  outline: none; /* Removes the outline */
+  all: unset;
+  display: inline-block;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  font: inherit;
+  color: inherit;
+  outline: none;
 }
 
-/* Reset link styles */
 a {
   text-decoration: none;
   color: inherit;
 }
 
-/* Reset list styles */
 ul,
 ol {
   list-style: none;

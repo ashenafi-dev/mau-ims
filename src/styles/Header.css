@@ -11,6 +11,17 @@
   border-radius: 1.25rem; /* 25px */
 }
 
+.sidebar--top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem; /* 4px */
+  background-color: rgba(70, 13, 87, 0.1);
+  border-radius: 1rem; /* 16px */
+  box-shadow: 2px 2px 5px grey;
+  cursor: default;
+}
+
 .logo {
   height: 80%;
   width: 5%;
