@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../styles/dashboard.css";
-import { sun, moon, arrow, profile, bell } from "./Svg";
+import { sun, moon, arrow, profileImage } from "./Svg";
 import api from "../services/api";
 import { jwtDecode } from "jwt-decode";
 import { AuthContext } from "../contexts/AuthContext"; // Import AuthContext
@@ -50,6 +50,11 @@ export function Dashboard({ menu }) {
     window.location.href = "/login"; // Redirect to login after logging out
   };
 
+  const [mirror, setMirror] = useState(false);
+  const hadleArrowClick = () => {
+    setMirror(!mirror);
+  };
+
   return (
     <div className="dashboard">
       <div className="sidebar">
@@ -74,23 +79,25 @@ export function Dashboard({ menu }) {
             <div className={active ? "active--theme" : ""}>{sun}</div>
             <div className={active ? "" : "active--theme"}>{moon}</div>
           </button>
-          <button className="arrow">{arrow}</button>
-          <button onClick={handleLogoutClick}>Logout</button>{" "}
-          {/* Add Logout Button */}
+          <button
+            className={`arrow-btn ${mirror ? "mirrored" : ""}`}
+            onClick={hadleArrowClick}
+          >
+            {arrow}
+          </button>
         </div>
       </div>
       <div className="content">
         <div className="content--header">
-          {bell}
-          {profile}
-          {decodedToken ? (
+          <button onClick={handleLogoutClick}>Logout</button>
+          {/* {bell} */}
+          <div className="profile">
+            {profileImage}
             <p>
               name: {decodedToken.username} id: {decodedToken.id} role:{" "}
               {decodedToken.role}
             </p>
-          ) : (
-            <p>Loading...</p>
-          )}
+          </div>
         </div>
         <div className="content--body">
           <form onSubmit={handleSubmit}>

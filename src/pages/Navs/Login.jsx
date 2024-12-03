@@ -73,23 +73,25 @@ function CredentialField() {
   }, [user, navigate]);
 
   return (
-    <div className="login">
-      <div className="credential">
-        <input
-          type="text"
-          value={username}
-          onChange={handleUsernameInput}
-          placeholder="Username"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={handlePasswordInput}
-          placeholder="Password"
-        />
-        <button onClick={handleLoginClick}>Login</button>
+    !user && (
+      <div className="login">
+        <div className="credential">
+          <input
+            type="text"
+            value={username}
+            onChange={handleUsernameInput}
+            placeholder="Username"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordInput}
+            placeholder="Password"
+          />
+          <button onClick={handleLoginClick}>Login</button>
+        </div>
       </div>
-    </div>
+    )
   );
 }
 

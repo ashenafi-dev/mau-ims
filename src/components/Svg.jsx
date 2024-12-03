@@ -66,7 +66,7 @@ const home = (
   </svg>
 );
 
-const profile = (
+const profileImage = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -99,4 +99,4 @@ const bell = (
     />
   </svg>
 );
-export { sun, moon, arrow, home, profile, bell };
+export { sun, moon, arrow, home, profileImage, bell };
