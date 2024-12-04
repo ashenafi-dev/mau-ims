@@ -1,4 +1,3 @@
-// src/components/Dashboard.jsx
 import { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -7,7 +6,14 @@ import "../styles/dashboard.css";
 import { sun, moon, arrow, profileImage } from "./Svg";
 import api from "../services/api";
 import { jwtDecode } from "jwt-decode";
-import { AuthContext } from "../contexts/AuthContext"; // Import AuthContext
+import { AuthContext } from "../contexts/AuthContext";
+import Home from "./user/Dashboard";
+import Inventory from "./user/Inventory"; // Import other components...
+import Request from "./user/Request";
+import Transfer from "./user/Transfer";
+import Report from "./user/Report";
+import Account from "./user/Account";
+import Support from "./user/Support";
 
 export function Dashboard({ menu }) {
   const [product, setProduct] = useState({
@@ -28,22 +34,71 @@ export function Dashboard({ menu }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/products", product);
-      console.log(response.data);
+      const response = await api.post("/createItem", product);
+      console.log(`RES: ${response.data}`);
     } catch (error) {
       console.error("Error adding product:", error);
     }
   };
 
   const [active, setActive] = useState(true);
+  const [activeComponent, setActiveComponent] = useState(null);
+
   function handleThemeClick() {
     setActive((active) => !active);
   }
 
+  const handleMenuClick = (menuName, userType) => {
+    console.log(menuName);
+    console.log(userType);
+
+    let component = null;
+    switch (userType) {
+      case "user":
+        if (menuName === "dashboard") {
+          component = <Home />;
+        } else if (menuName === "inventory") {
+          component = <Inventory />;
+        } else if (menuName === "request") {
+          component = <Request />;
+        } else if (menuName === "transfer") {
+          component = <Transfer />;
+        } else if (menuName === "report") {
+          component = <Report />;
+        } else if (menuName === "account") {
+          component = <Account />;
+        } else if (menuName === "support") {
+          component = <Support />;
+        } else {
+          // component = <Default />;
+        }
+        break;
+      case "staff":
+        // Similar cases for staff...
+        break;
+      case "admin":
+        // Similar cases for admin...
+        break;
+      case "technician":
+        // Similar cases for technician...
+        break;
+      case "manager":
+        // Similar cases for manager...
+        break;
+      case "faculty":
+        // Similar cases for faculty...
+        break;
+      default:
+        console.log("incorrect user");
+    }
+
+    setActiveComponent(component);
+  };
+
   const token = localStorage.getItem("token");
   const decodedToken = jwtDecode(token);
 
-  const { logout } = useContext(AuthContext); // Destructure logout from AuthContext
+  const { logout } = useContext(AuthContext);
 
   const handleLogoutClick = () => {
     logout();
@@ -51,8 +106,8 @@ export function Dashboard({ menu }) {
   };
 
   const [mirror, setMirror] = useState(false);
-  const hadleArrowClick = () => {
-    setMirror(!mirror);
+  const handleArrowClick = () => {
+    setMirror((mirror) => !mirror);
   };
 
   return (
@@ -66,7 +121,12 @@ export function Dashboard({ menu }) {
           <ul className="menu--list">
             {menu.map((item, index) => (
               <li key={index}>
-                <button className="menu--list--inner">
+                <button
+                  onClick={(e) => handleMenuClick(e.target.value, e.target.id)}
+                  value={item.name}
+                  id={decodedToken.role}
+                  className="menu--list--inner"
+                >
                   {item.icon}
                   {item.name}
                 </button>
@@ -81,7 +141,7 @@ export function Dashboard({ menu }) {
           </button>
           <button
             className={`arrow-btn ${mirror ? "mirrored" : ""}`}
-            onClick={hadleArrowClick}
+            onClick={handleArrowClick}
           >
             {arrow}
           </button>
@@ -90,43 +150,19 @@ export function Dashboard({ menu }) {
       <div className="content">
         <div className="content--header">
           <button onClick={handleLogoutClick}>Logout</button>
-          {/* {bell} */}
           <div className="profile">
-            {profileImage}
-            <p>
-              name: {decodedToken.username} id: {decodedToken.id} role:{" "}
-              {decodedToken.role}
-            </p>
+            <button className="profile-btn" onClick={handleArrowClick}>
+              {profileImage}
+            </button>
+            <div>
+              <p>name: {decodedToken.username}</p>
+              <p>role: {decodedToken.role}</p>
+            </div>
           </div>
         </div>
         <div className="content--body">
-          <form onSubmit={handleSubmit}>
-            <input
-              name="name"
-              value={product.name}
-              onChange={handleChange}
-              placeholder="Name"
-            />
-            <input
-              name="description"
-              value={product.description}
-              onChange={handleChange}
-              placeholder="Description"
-            />
-            <input
-              name="price"
-              value={product.price}
-              onChange={handleChange}
-              placeholder="Price"
-            />
-            <input
-              name="quantity"
-              value={product.quantity}
-              onChange={handleChange}
-              placeholder="Quantity"
-            />
-            <button type="submit">Add Product</button>
-          </form>
+          {insertProduct(handleSubmit, product, handleChange)}
+          {activeComponent}
         </div>
       </div>
     </div>
@@ -141,3 +177,35 @@ Dashboard.propTypes = {
     })
   ).isRequired,
 };
+
+function insertProduct(handleSubmit, product, handleChange) {
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        name="name"
+        value={product.name}
+        onChange={handleChange}
+        placeholder="Name"
+      />
+      <input
+        name="description"
+        value={product.description}
+        onChange={handleChange}
+        placeholder="Description"
+      />
+      <input
+        name="price"
+        value={product.price}
+        onChange={handleChange}
+        placeholder="Price"
+      />
+      <input
+        name="quantity"
+        value={product.quantity}
+        onChange={handleChange}
+        placeholder="Quantity"
+      />
+      <button type="submit">Add Product</button>
+    </form>
+  );
+}

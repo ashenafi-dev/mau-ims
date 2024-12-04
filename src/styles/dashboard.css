@@ -67,9 +67,16 @@
 }
 
 .profile {
+  margin-top: 5px;
+  margin-bottom: 5px;
   width: 20%;
-  height: 100%;
-  border: 2px dotted gray;
+  height: 90%;
+  /* border: 2px dotted gray; */
+
+  border-radius: 1rem;
+  background-color: rgb(214, 214, 214);
+
+  box-shadow: 0.75px 0.75px 0.75px 0.75px rgba(6, 160, 96, 0.25);
 
   display: grid;
   grid-template-columns: 35% 1fr;
@@ -78,9 +85,11 @@
   align-items: center;
 }
 
-.profileImage {
-  max-height: 75%;
-  min-width: 75%;
+.profile button {
+  /* border: 2px dotted gray; */
+
+  /* height: 50%; */
+  width: 80%;
 }
 
 .content--body {
@@ -125,6 +134,10 @@
 .menu--list--inner:active {
   box-shadow: none;
   scale: 1;
+}
+
+.menu--list--inner:hover:nth-child(1) {
+  margin-left: 5px;
 }
 
 .menu--list--inner:hover svg {
@@ -181,10 +194,20 @@
 }
 
 .sad-face {
-  font-size: 125px;
+  font-size: calc(15dvh);
   opacity: 0.85;
   margin: 0;
   padding: 0;
+}
+
+.page-notFound h1 {
+  font-size: calc(5dvh);
+  text-align: center;
+}
+
+.page-notFound p {
+  font-size: calc(2dvh);
+  text-align: center;
 }
 
 .page-notFound {
@@ -200,9 +223,9 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 1rem;
+  /* gap: 1rem; */
 
   border-radius: 1rem;
   background-color: rgba(128, 128, 128, 0.05);

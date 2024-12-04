@@ -40,6 +40,12 @@ function CredentialField() {
         case "staff":
           navigate("/staff");
           break;
+        case "faculity":
+          navigate("/faculity");
+          break;
+        case "technician":
+          navigate("/technician");
+          break;
         default:
           navigate("/");
           break;
@@ -64,6 +70,12 @@ function CredentialField() {
           break;
         case "staff":
           navigate("/staff");
+          break;
+        case "faculity":
+          navigate("/faculity");
+          break;
+        case "technician":
+          navigate("/technician");
           break;
         default:
           navigate("/");
