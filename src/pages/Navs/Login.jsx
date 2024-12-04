@@ -47,13 +47,15 @@ function CredentialField() {
           navigate("/technician");
           break;
         default:
-          navigate("/");
+          navigate("/contact-us");
           break;
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.table(user);
 
   // Redirect if user is already logged in
   useEffect(() => {
@@ -78,7 +80,7 @@ function CredentialField() {
           navigate("/technician");
           break;
         default:
-          navigate("/");
+          navigate("/about");
           break;
       }
     }

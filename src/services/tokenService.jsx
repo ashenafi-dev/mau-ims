@@ -1,7 +1,16 @@
-const TOKEN_KEY = "token";
+export const getToken = () => {
+  return localStorage.getItem("token");
+};
 
-export const getToken = () => localStorage.getItem(TOKEN_KEY);
+export const setToken = (token) => {
+  localStorage.setItem("token", token);
+};
 
-export const setToken = (token) => localStorage.setItem(TOKEN_KEY, token);
+export const removeToken = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("refreshToken");
+};
 
-export const removeToken = () => localStorage.removeItem(TOKEN_KEY);
+export const getRefreshToken = () => {
+  return localStorage.getItem("refreshToken");
+};
