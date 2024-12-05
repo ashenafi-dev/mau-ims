@@ -3,46 +3,22 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../styles/dashboard.css";
-import { sun, moon, arrow, profileImage } from "./Svg";
-import api from "../services/api";
+import { sun, moon, profileImage } from "./Svg";
 import { jwtDecode } from "jwt-decode";
 import { AuthContext } from "../contexts/AuthContext";
-import Home from "./user/Dashboard";
-import Inventory from "./user/Inventory"; // Import other components...
-import Request from "./user/Request";
-import Transfer from "./user/Transfer";
-import Report from "./user/Report";
-import Account from "./user/Account";
-import Support from "./user/Support";
+import {
+  Home,
+  Account,
+  Inventory,
+  Report,
+  Request,
+  Support,
+  Transfer,
+} from "./SubComponent/User";
 
 export function Dashboard({ menu }) {
-  const [product, setProduct] = useState({
-    name: "",
-    description: "",
-    price: "",
-    quantity: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({
-      ...product,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await api.post("/createItem", product);
-      console.log(`RES: ${response.data}`);
-    } catch (error) {
-      console.error("Error adding product:", error);
-    }
-  };
-
   const [active, setActive] = useState(true);
-  const [activeComponent, setActiveComponent] = useState(null);
+  const [activeComponent, setActiveComponent] = useState(<Home />); // Default to Home component
 
   function handleThemeClick() {
     setActive((active) => !active);
@@ -70,7 +46,7 @@ export function Dashboard({ menu }) {
         } else if (menuName === "support") {
           component = <Support />;
         } else {
-          // component = <Default />;
+          component = <Home />; // Default to Home component if no match
         }
         break;
       case "staff":
@@ -89,7 +65,8 @@ export function Dashboard({ menu }) {
         // Similar cases for faculty...
         break;
       default:
-        console.log("incorrect user");
+        console.log("Incorrect user type");
+        component = <Home />; // Default to Home component if no match
     }
 
     setActiveComponent(component);
@@ -103,11 +80,6 @@ export function Dashboard({ menu }) {
   const handleLogoutClick = () => {
     logout();
     window.location.href = "/login"; // Redirect to login after logging out
-  };
-
-  const [mirror, setMirror] = useState(false);
-  const handleArrowClick = () => {
-    setMirror((mirror) => !mirror);
   };
 
   return (
@@ -139,31 +111,28 @@ export function Dashboard({ menu }) {
             <div className={active ? "active--theme" : ""}>{sun}</div>
             <div className={active ? "" : "active--theme"}>{moon}</div>
           </button>
-          <button
+          <button className="logout" onClick={handleLogoutClick}>
+            logout
+          </button>
+          {/* <button
             className={`arrow-btn ${mirror ? "mirrored" : ""}`}
             onClick={handleArrowClick}
           >
             {arrow}
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="content">
         <div className="content--header">
-          <button onClick={handleLogoutClick}>Logout</button>
           <div className="profile">
-            <button className="profile-btn" onClick={handleArrowClick}>
-              {profileImage}
-            </button>
+            <button className="profile-btn">{profileImage}</button>
             <div>
               <p>name: {decodedToken.username}</p>
               <p>role: {decodedToken.role}</p>
             </div>
           </div>
         </div>
-        <div className="content--body">
-          {insertProduct(handleSubmit, product, handleChange)}
-          {activeComponent}
-        </div>
+        <div className="content--body">{activeComponent}</div>
       </div>
     </div>
   );
@@ -177,35 +146,3 @@ Dashboard.propTypes = {
     })
   ).isRequired,
 };
-
-function insertProduct(handleSubmit, product, handleChange) {
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="name"
-        value={product.name}
-        onChange={handleChange}
-        placeholder="Name"
-      />
-      <input
-        name="description"
-        value={product.description}
-        onChange={handleChange}
-        placeholder="Description"
-      />
-      <input
-        name="price"
-        value={product.price}
-        onChange={handleChange}
-        placeholder="Price"
-      />
-      <input
-        name="quantity"
-        value={product.quantity}
-        onChange={handleChange}
-        placeholder="Quantity"
-      />
-      <button type="submit">Add Product</button>
-    </form>
-  );
-}

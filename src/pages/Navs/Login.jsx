@@ -40,14 +40,14 @@ function CredentialField() {
         case "staff":
           navigate("/staff");
           break;
-        case "faculity":
+        case "Dep.Head":
           navigate("/faculity");
           break;
         case "technician":
           navigate("/technician");
           break;
         default:
-          navigate("/contact-us");
+          navigate("/");
           break;
       }
     } catch (error) {

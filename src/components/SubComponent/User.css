@@ -1,0 +1,110 @@
+.item--card {
+  height: 175px;
+  width: 125px;
+
+  /* border: 2px dotted gray; */
+  box-shadow: 2px 2px 2px rgba(63, 63, 63, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(153, 153, 153, 0.1);
+  /* border-radius: 1rem; */
+  padding-bottom: 0.5rem;
+}
+
+.item--card img {
+  height: 50%;
+  width: 100%;
+  /* border-radius: 1rem;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0; */
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.item--card p {
+  font-size: 0.75rem;
+}
+
+.item--card button {
+  padding: 0.5rem;
+  color: rgba(19, 65, 19, 0.637);
+  font-style: italic;
+}
+
+.content--body--top {
+  position: sticky;
+}
+
+.item--card button {
+  align-items: center;
+  width: 60%;
+  text-align: center;
+}
+
+.item--card button {
+  background-color: rgba(200, 200, 200, 0.25);
+  /* border-radius: 0.75rem; */
+  padding: 0.25rem;
+  box-shadow: 1px 1px 1px rgb(150, 150, 150, 0.5);
+}
+
+.item--card button:hover {
+  scale: 1.1;
+}
+
+.item--card button:active {
+  box-shadow: none;
+  scale: 1;
+}
+
+/* General styling for the table container */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1em;
+  font-family: "Arial", sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Styling for table headers */
+table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+/* Styling for table cells */
+table th,
+table td {
+  padding: 12px 15px;
+  border: 1px solid #dddddd;
+}
+
+/* Styling for table rows */
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+/* Styling for alternate rows */
+table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+/* Styling for the last row */
+table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+/* Styling for active rows */
+table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
