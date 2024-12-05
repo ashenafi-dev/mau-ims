@@ -40,7 +40,7 @@ function CredentialField() {
         case "staff":
           navigate("/staff");
           break;
-        case "Dep.Head":
+        case "faculity":
           navigate("/faculity");
           break;
         case "technician":

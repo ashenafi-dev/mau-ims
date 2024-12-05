@@ -3,26 +3,21 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../styles/dashboard.css";
-import { sun, moon, profileImage } from "./Svg";
+import { profileImage } from "./Svg";
 import { jwtDecode } from "jwt-decode";
 import { AuthContext } from "../contexts/AuthContext";
 import {
-  Home,
-  Account,
+  Accounts,
   Inventory,
   Report,
   Request,
-  Support,
   Transfer,
+  Supports,
+  UsersByDepartments,
 } from "./SubComponent/User";
 
 export function Dashboard({ menu }) {
-  const [active, setActive] = useState(true);
-  const [activeComponent, setActiveComponent] = useState(<Home />); // Default to Home component
-
-  function handleThemeClick() {
-    setActive((active) => !active);
-  }
+  const [activeComponent, setActiveComponent] = useState(<Inventory />); // Default to Home component
 
   const handleMenuClick = (menuName, userType) => {
     console.log(menuName);
@@ -31,9 +26,7 @@ export function Dashboard({ menu }) {
     let component = null;
     switch (userType) {
       case "user":
-        if (menuName === "dashboard") {
-          component = <Home />;
-        } else if (menuName === "inventory") {
+        if (menuName === "inventory") {
           component = <Inventory />;
         } else if (menuName === "request") {
           component = <Request />;
@@ -42,31 +35,100 @@ export function Dashboard({ menu }) {
         } else if (menuName === "report") {
           component = <Report />;
         } else if (menuName === "account") {
-          component = <Account />;
+          component = <Accounts />;
         } else if (menuName === "support") {
-          component = <Support />;
+          component = <Supports />;
         } else {
-          component = <Home />; // Default to Home component if no match
+          component = <Inventory />; // Default to Home component if no match
         }
         break;
       case "staff":
-        // Similar cases for staff...
+        if (menuName === "inventory") {
+          component = <Inventory />;
+        } else if (menuName === "request") {
+          component = <Request />;
+        } else if (menuName === "transfer") {
+          component = <Transfer />;
+        } else if (menuName === "report") {
+          component = <Report />;
+        } else if (menuName === "account") {
+          component = <Accounts />;
+        } else if (menuName === "support") {
+          component = <Supports />;
+        } else {
+          component = <Inventory />; // Default to Home component if no match
+        }
         break;
       case "admin":
-        // Similar cases for admin...
+        if (menuName === "inventory") {
+          component = <Inventory />;
+        } else if (menuName === "request") {
+          component = <Request />;
+        } else if (menuName === "transfer") {
+          component = <Transfer />;
+        } else if (menuName === "report") {
+          component = <Report />;
+        } else if (menuName === "account") {
+          component = <Accounts />;
+        } else if (menuName === "support") {
+          component = <Supports />;
+        } else {
+          component = <Inventory />; // Default to Home component if no match
+        }
         break;
       case "technician":
-        // Similar cases for technician...
+        if (menuName === "inventory") {
+          component = <Inventory />;
+        } else if (menuName === "request") {
+          component = <Request />;
+        } else if (menuName === "transfer") {
+          component = <Transfer />;
+        } else if (menuName === "report") {
+          component = <Report />;
+        } else if (menuName === "account") {
+          component = <Accounts />;
+        } else if (menuName === "support") {
+          component = <Supports />;
+        } else {
+          component = <Inventory />; // Default to Home component if no match
+        }
         break;
       case "manager":
-        // Similar cases for manager...
+        if (menuName === "inventory") {
+          component = <Inventory />;
+        } else if (menuName === "request") {
+          component = <Request />;
+        } else if (menuName === "transfer") {
+          component = <Transfer />;
+        } else if (menuName === "report") {
+          component = <Report />;
+        } else if (menuName === "account") {
+          component = <Accounts />;
+        } else if (menuName === "support") {
+          component = <Supports />;
+        } else {
+          component = <Inventory />; // Default to Home component if no match
+        }
         break;
-      case "faculty":
-        // Similar cases for faculty...
+      case "faculity":
+        if (menuName === "inventory") {
+          component = <Inventory />;
+        } else if (menuName === "request") {
+          component = <Request />;
+        } else if (menuName === "users") {
+          component = <UsersByDepartments />;
+        } else if (menuName === "report") {
+          component = <Report />;
+        } else if (menuName === "account") {
+          component = <Accounts />;
+        } else if (menuName === "support") {
+          component = <Supports />;
+        } else {
+          component = <Inventory />; // Default to Home component if no match
+        }
         break;
       default:
         console.log("Incorrect user type");
-        component = <Home />; // Default to Home component if no match
     }
 
     setActiveComponent(component);
@@ -107,19 +169,9 @@ export function Dashboard({ menu }) {
           </ul>
         </div>
         <div className="sidebar--bottom">
-          <button onClick={handleThemeClick} className="sun--moon">
-            <div className={active ? "active--theme" : ""}>{sun}</div>
-            <div className={active ? "" : "active--theme"}>{moon}</div>
-          </button>
           <button className="logout" onClick={handleLogoutClick}>
             logout
           </button>
-          {/* <button
-            className={`arrow-btn ${mirror ? "mirrored" : ""}`}
-            onClick={handleArrowClick}
-          >
-            {arrow}
-          </button> */}
         </div>
       </div>
       <div className="content">
