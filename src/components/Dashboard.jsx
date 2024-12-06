@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -6,6 +6,7 @@ import "../styles/dashboard.css";
 import { profileImage } from "./Svg";
 import { jwtDecode } from "jwt-decode";
 import { AuthContext } from "../contexts/AuthContext";
+import { getUser } from "../services/userUtils";
 import {
   Accounts,
   Inventory,
@@ -14,10 +15,21 @@ import {
   Transfer,
   Supports,
   UsersByDepartments,
+  UsersLists,
+  Home,
 } from "./SubComponent/User";
 
 export function Dashboard({ menu }) {
-  const [activeComponent, setActiveComponent] = useState(<Inventory />); // Default to Home component
+  const [activeComponent, setActiveComponent] = useState(<Inventory />); // Default to Inventory component
+  const [user, setUser] = useState(getUser());
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUser(decodedToken); // Update the user state when the token changes
+    }
+  }, []); // Only run once on mount
 
   const handleMenuClick = (menuName, userType) => {
     console.log(menuName);
@@ -26,106 +38,22 @@ export function Dashboard({ menu }) {
     let component = null;
     switch (userType) {
       case "user":
-        if (menuName === "inventory") {
-          component = <Inventory />;
-        } else if (menuName === "request") {
-          component = <Request />;
-        } else if (menuName === "transfer") {
-          component = <Transfer />;
-        } else if (menuName === "report") {
-          component = <Report />;
-        } else if (menuName === "account") {
-          component = <Accounts />;
-        } else if (menuName === "support") {
-          component = <Supports />;
-        } else {
-          component = <Inventory />; // Default to Home component if no match
-        }
+        component = getComponentByMenuName(menuName, "user");
         break;
       case "staff":
-        if (menuName === "inventory") {
-          component = <Inventory />;
-        } else if (menuName === "request") {
-          component = <Request />;
-        } else if (menuName === "transfer") {
-          component = <Transfer />;
-        } else if (menuName === "report") {
-          component = <Report />;
-        } else if (menuName === "account") {
-          component = <Accounts />;
-        } else if (menuName === "support") {
-          component = <Supports />;
-        } else {
-          component = <Inventory />; // Default to Home component if no match
-        }
+        component = getComponentByMenuName(menuName, "staff");
         break;
       case "admin":
-        if (menuName === "inventory") {
-          component = <Inventory />;
-        } else if (menuName === "request") {
-          component = <Request />;
-        } else if (menuName === "transfer") {
-          component = <Transfer />;
-        } else if (menuName === "report") {
-          component = <Report />;
-        } else if (menuName === "account") {
-          component = <Accounts />;
-        } else if (menuName === "support") {
-          component = <Supports />;
-        } else {
-          component = <Inventory />; // Default to Home component if no match
-        }
+        component = getComponentByMenuName(menuName, "admin");
         break;
       case "technician":
-        if (menuName === "inventory") {
-          component = <Inventory />;
-        } else if (menuName === "request") {
-          component = <Request />;
-        } else if (menuName === "transfer") {
-          component = <Transfer />;
-        } else if (menuName === "report") {
-          component = <Report />;
-        } else if (menuName === "account") {
-          component = <Accounts />;
-        } else if (menuName === "support") {
-          component = <Supports />;
-        } else {
-          component = <Inventory />; // Default to Home component if no match
-        }
+        component = getComponentByMenuName(menuName, "technician");
         break;
       case "manager":
-        if (menuName === "inventory") {
-          component = <Inventory />;
-        } else if (menuName === "request") {
-          component = <Request />;
-        } else if (menuName === "transfer") {
-          component = <Transfer />;
-        } else if (menuName === "report") {
-          component = <Report />;
-        } else if (menuName === "account") {
-          component = <Accounts />;
-        } else if (menuName === "support") {
-          component = <Supports />;
-        } else {
-          component = <Inventory />; // Default to Home component if no match
-        }
+        component = getComponentByMenuName(menuName, "manager");
         break;
       case "faculity":
-        if (menuName === "inventory") {
-          component = <Inventory />;
-        } else if (menuName === "request") {
-          component = <Request />;
-        } else if (menuName === "users") {
-          component = <UsersByDepartments />;
-        } else if (menuName === "report") {
-          component = <Report />;
-        } else if (menuName === "account") {
-          component = <Accounts />;
-        } else if (menuName === "support") {
-          component = <Supports />;
-        } else {
-          component = <Inventory />; // Default to Home component if no match
-        }
+        component = getComponentByMenuName(menuName, "faculity");
         break;
       default:
         console.log("Incorrect user type");
@@ -134,13 +62,42 @@ export function Dashboard({ menu }) {
     setActiveComponent(component);
   };
 
-  const token = localStorage.getItem("token");
-  const decodedToken = jwtDecode(token);
+  const getComponentByMenuName = (menuName, userType) => {
+    switch (menuName) {
+      case "dashboard":
+        return <Home />;
+      case "inventory":
+        return <Inventory />;
+      case "request":
+        return <Request />;
+      case "transfer":
+        return <Transfer />;
+      case "report":
+        return <Report />;
+      case "account":
+        return <Accounts />;
+      case "support":
+        return <Supports />;
+      case "users":
+        return userType === "admin" || userType === "faculity" ? (
+          <UsersLists />
+        ) : (
+          <UsersByDepartments />
+        );
+      default:
+        return (
+          <div>
+            {menuName} is not a valid menu list. Check the menus again. 😁
+          </div>
+        );
+    }
+  };
 
   const { logout } = useContext(AuthContext);
 
   const handleLogoutClick = () => {
     logout();
+    setUser(null); // Clear the user state on logout
     window.location.href = "/login"; // Redirect to login after logging out
   };
 
@@ -158,7 +115,7 @@ export function Dashboard({ menu }) {
                 <button
                   onClick={(e) => handleMenuClick(e.target.value, e.target.id)}
                   value={item.name}
-                  id={decodedToken.role}
+                  id={user.role}
                   className="menu--list--inner"
                 >
                   {item.icon}
@@ -170,7 +127,7 @@ export function Dashboard({ menu }) {
         </div>
         <div className="sidebar--bottom">
           <button className="logout" onClick={handleLogoutClick}>
-            logout
+            Logout
           </button>
         </div>
       </div>
@@ -179,8 +136,8 @@ export function Dashboard({ menu }) {
           <div className="profile">
             <button className="profile-btn">{profileImage}</button>
             <div>
-              <p>name: {decodedToken.username}</p>
-              <p>role: {decodedToken.role}</p>
+              <p>name: {user.username}</p>
+              <p>role: {user.role}</p>
             </div>
           </div>
         </div>

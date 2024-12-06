@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import api from "../../services/api"; // Adjust the path as needed
 
 const GetItems = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -22,6 +23,29 @@ const GetItems = () => {
     fetchItems();
   }, []);
 
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedItems = React.useMemo(() => {
+    if (!sortConfig.key) return items;
+
+    const sorted = [...items].sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+    return sorted;
+  }, [items, sortConfig]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -34,18 +58,18 @@ const GetItems = () => {
     <table className="items-table">
       <thead>
         <tr>
-          <th>Item ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Stock Level</th>
-          <th>Expiration Date</th>
-          <th>Status</th>
+          <th onClick={() => handleSort("item_id")}>Item ID</th>
+          <th onClick={() => handleSort("name")}>Name</th>
+          <th onClick={() => handleSort("description")}>Description</th>
+          <th onClick={() => handleSort("category")}>Category</th>
+          <th onClick={() => handleSort("price")}>Price</th>
+          <th onClick={() => handleSort("stock_level")}>Stock Level</th>
+          <th onClick={() => handleSort("expiration_date")}>Expiration Date</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {items.map((item) => (
+        {sortedItems.map((item) => (
           <tr key={item.item_id}>
             <td>{item.item_id}</td>
             <td>{item.name}</td>

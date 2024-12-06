@@ -6,8 +6,10 @@ import {
   request,
   report,
   users,
+  dashboard,
 } from "./Svg";
 const userMenuList = [
+  { icon: dashboard, name: "dashboard" },
   { icon: home, name: "inventory" },
   { icon: request, name: "request" },
   { icon: transfer, name: "transfer" },
@@ -16,22 +18,26 @@ const userMenuList = [
 ];
 
 const staffMenuList = [
+  { icon: dashboard, name: "dashboard" },
   { icon: home, name: "inventory" },
   { icon: request, name: "request" },
+  { icon: transfer, name: "transfer" },
   { icon: profile, name: "account" },
   { icon: support, name: "support" },
 ];
 
 const adminMenuList = [
-  { icon: users, name: "Users" },
-  { icon: home, name: "Inventory" },
+  { icon: dashboard, name: "dashboard" },
+  { icon: users, name: "users" },
+  { icon: home, name: "inventory" },
   { icon: report, name: "reports" },
-  { icon: profile, name: "Account" },
+  { icon: profile, name: "account" },
   { icon: support, name: "support" },
 ];
 
 const managerMenuList = [
-  { icon: home, name: "Inventory" },
+  { icon: dashboard, name: "dashboard" },
+  { icon: home, name: "inventory" },
   { icon: request, name: "Request" },
   { icon: report, name: "Reports" },
   { icon: profile, name: "account" },
@@ -45,6 +51,7 @@ const technicianMenuList = [
 ];
 
 const faculityMenuList = [
+  { icon: dashboard, name: "dashboard" },
   { icon: home, name: "inventory" },
   { icon: request, name: "request" },
   { icon: users, name: "users" },

@@ -5,6 +5,8 @@ import Transfers from "./Transfers";
 import Requests from "./Requests";
 import Support from "./Support";
 import GetItems from "./GetItems";
+import Home from "./Home";
+import UsersList from "./UsersList";
 import { getUser, getUserID } from "../../services/userUtils";
 
 // components
@@ -61,7 +63,16 @@ const UsersByDepartments = () => {
   );
 };
 
+const UsersLists = () => {
+  return (
+    <div>
+      <UsersList />
+    </div>
+  );
+};
+
 export {
+  Home,
   Accounts,
   Inventory,
   Report,
@@ -69,4 +80,5 @@ export {
   Supports,
   Transfer,
   UsersByDepartments,
+  UsersLists,
 };
