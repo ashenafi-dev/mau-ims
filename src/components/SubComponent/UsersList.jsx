@@ -1,26 +1,34 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import api from "../../services/api"; // Adjust the path as needed
-import { modify, remove, addUser } from "../Svg";
+import Modal from "./Modal";
+import NewUserForm from "./NewUserForm"; // Import the NewUserForm component
+import UpdateUserForm from "./UpdateUserForm"; // Import the UpdateUserForm component
+import { addUser, modify, remove } from "../Svg";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
+  const [sortedUsers, setSortedUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [modalType, setModalType] = useState(""); // To distinguish between Add and Modify modals
+
+  const fetchUsers = async () => {
+    try {
+      const response = await api.get("/users");
+      setUsers(response.data);
+      setSortedUsers(response.data);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+      setError(err);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await api.get("/users");
-        setUsers(response.data);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching users:", err);
-        setError(err);
-        setLoading(false);
-      }
-    };
-
     fetchUsers();
   }, []);
 
@@ -30,22 +38,51 @@ const UsersList = () => {
       direction = "desc";
     }
     setSortConfig({ key, direction });
-  };
-
-  const sortedUsers = React.useMemo(() => {
-    if (!sortConfig.key) return users;
 
     const sorted = [...users].sort((a, b) => {
-      if (a[sortConfig.key] < b[sortConfig.key]) {
-        return sortConfig.direction === "asc" ? -1 : 1;
+      if (a[key] < b[key]) {
+        return direction === "asc" ? -1 : 1;
       }
-      if (a[sortConfig.key] > b[sortConfig.key]) {
-        return sortConfig.direction === "asc" ? 1 : -1;
+      if (a[key] > b[key]) {
+        return direction === "asc" ? 1 : -1;
       }
       return 0;
     });
-    return sorted;
-  }, [users, sortConfig]);
+
+    setSortedUsers(sorted);
+  };
+
+  const handleDeleteClick = async (userId) => {
+    try {
+      await api.delete(`/users/${userId}`);
+      setSortedUsers(sortedUsers.filter((user) => user.user_id !== userId));
+      alert(`User with ID ${userId} deleted successfully`);
+    } catch (err) {
+      console.error("Error deleting user:", err);
+      alert("Error deleting user. Please try again.");
+    }
+  };
+
+  const handleModifyClick = (userId) => {
+    setSelectedUserId(userId);
+    setModalType("modify");
+    setShowModal(true);
+  };
+
+  const handleAddClick = () => {
+    setModalType("add");
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedUserId(null);
+  };
+
+  const handleUserUpdated = () => {
+    setShowModal(false);
+    fetchUsers(); // Re-fetch users after a user is updated
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -55,18 +92,26 @@ const UsersList = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  const handleAddUserClick = () => {
-    return 0;
-  };
-  handleAddUserClick();
-
   return (
     <div>
       {console.table(users)}
+      <Modal show={showModal} onClose={handleCloseModal}>
+        {modalType === "add" ? (
+          <NewUserForm onUserCreated={handleUserUpdated} />
+        ) : (
+          selectedUserId && (
+            <UpdateUserForm
+              userId={selectedUserId}
+              onClose={handleCloseModal}
+              onUpdate={handleUserUpdated}
+            />
+          )
+        )}
+      </Modal>
       <table>
         <thead>
           <tr>
-            <th onClick={() => handleSort("user_id")}>UserID</th>
+            <th onClick={() => handleSort("user_id")}>User ID</th>
             <th onClick={() => handleSort("username")}>Username</th>
             <th onClick={() => handleSort("email")}>Email</th>
             <th onClick={() => handleSort("phone")}>Phone</th>
@@ -89,21 +134,16 @@ const UsersList = () => {
               <td>{user.first_name}</td>
               <td>{user.last_name}</td>
               <td>{user.roles}</td>
-              <td>{modify}</td>
-              <td>{remove}</td>
+              <td onClick={() => handleModifyClick(user.user_id)}>{modify}</td>
+              <td onClick={() => handleDeleteClick(user.user_id)}>{remove}</td>
             </tr>
           ))}
+          {/* Add empty row with "Add" button */}
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td colSpan="2">{addUser}</td>
+            <td colSpan="8"></td>
+            <td colSpan="2" onClick={handleAddClick}>
+              {addUser}
+            </td>
           </tr>
         </tbody>
       </table>

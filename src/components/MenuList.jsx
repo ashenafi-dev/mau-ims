@@ -7,56 +7,56 @@ import {
   report,
   users,
   dashboard,
+  system,
 } from "./Svg";
 const userMenuList = [
-  { icon: dashboard, name: "dashboard" },
-  { icon: home, name: "inventory" },
-  { icon: request, name: "request" },
-  { icon: transfer, name: "transfer" },
-  { icon: profile, name: "account" },
-  { icon: support, name: "support" },
+  { icon: dashboard, name: "dashboard", id: "dashboard" },
+  { icon: home, name: "inventory", id: "userInventory" },
+  { icon: request, name: "request", id: "request" },
+  { icon: transfer, name: "transfer", id: "transfer" },
+  { icon: profile, name: "account", id: "account" },
+  { icon: support, name: "support", id: "support" },
 ];
 
 const staffMenuList = [
-  { icon: dashboard, name: "dashboard" },
-  { icon: home, name: "inventory" },
-  { icon: request, name: "request" },
-  { icon: transfer, name: "transfer" },
-  { icon: profile, name: "account" },
-  { icon: support, name: "support" },
+  { icon: dashboard, name: "dashboard", id: "dashboard" },
+  { icon: home, name: "inventory", id: "inventory" },
+  { icon: request, name: "request", id: "request" },
+  { icon: transfer, name: "transfer", id: "transfer" },
+  { icon: profile, name: "account", id: "account" },
+  { icon: support, name: "support", id: "support" },
 ];
 
 const adminMenuList = [
-  { icon: dashboard, name: "dashboard" },
-  { icon: users, name: "users" },
-  { icon: home, name: "inventory" },
-  { icon: report, name: "reports" },
-  { icon: profile, name: "account" },
-  { icon: support, name: "support" },
+  { icon: dashboard, name: "dashboard", id: "dashboard" },
+  { icon: users, name: "users", id: "users" },
+  { icon: system, name: "system", id: "system" },
+  { icon: profile, name: "account", id: "account" },
+  { icon: support, name: "support", id: "support" },
 ];
 
 const managerMenuList = [
-  { icon: dashboard, name: "dashboard" },
-  { icon: home, name: "inventory" },
-  { icon: request, name: "Request" },
-  { icon: report, name: "Reports" },
-  { icon: profile, name: "account" },
-  { icon: support, name: "support" },
+  { icon: dashboard, name: "dashboard", id: "dashboard" },
+  { icon: home, name: "inventory", id: "inventory" },
+  { icon: request, name: "Request", id: "Request" },
+  { icon: report, name: "Reports", id: "Reports" },
+  { icon: profile, name: "account", id: "account" },
+  { icon: support, name: "support", id: "support" },
 ];
 const technicianMenuList = [
-  { icon: home, name: "Faliures" },
-  { icon: report, name: "Reports" },
-  { icon: profile, name: "account" },
-  { icon: home, name: "support" },
+  { icon: home, name: "Faliures", id: "Faliures" },
+  { icon: report, name: "Reports", id: "Reports" },
+  { icon: profile, name: "account", id: "account" },
+  { icon: home, name: "support", id: "support" },
 ];
 
 const faculityMenuList = [
-  { icon: dashboard, name: "dashboard" },
-  { icon: home, name: "inventory" },
-  { icon: request, name: "request" },
-  { icon: users, name: "users" },
-  { icon: profile, name: "account" },
-  { icon: support, name: "support" },
+  { icon: dashboard, name: "dashboard", id: "dashboard" },
+  { icon: home, name: "inventory", id: "inventory" },
+  { icon: request, name: "request", id: "request" },
+  { icon: users, name: "users", id: "users" },
+  { icon: profile, name: "account", id: "account" },
+  { icon: support, name: "support", id: "support" },
 ];
 
 export {

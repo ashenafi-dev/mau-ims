@@ -17,6 +17,8 @@ import {
   UsersByDepartments,
   UsersLists,
   Home,
+  BackupSettings,
+  GetItemsUser,
 } from "./SubComponent/User";
 
 export function Dashboard({ menu }) {
@@ -70,6 +72,10 @@ export function Dashboard({ menu }) {
         return <Inventory />;
       case "request":
         return <Request />;
+      case "userInventory":
+        return <GetItemsUser />;
+      case "system":
+        return <BackupSettings />;
       case "transfer":
         return <Transfer />;
       case "report":
@@ -114,7 +120,7 @@ export function Dashboard({ menu }) {
               <li key={index}>
                 <button
                   onClick={(e) => handleMenuClick(e.target.value, e.target.id)}
-                  value={item.name}
+                  value={item.id}
                   id={user.role}
                   className="menu--list--inner"
                 >

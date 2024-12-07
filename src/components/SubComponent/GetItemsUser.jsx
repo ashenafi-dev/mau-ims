@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api"; // Adjust the path as needed
 
-const GetItems = () => {
+const GetItemsUser = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -64,8 +64,7 @@ const GetItems = () => {
           <th onClick={() => handleSort("category")}>Category</th>
           <th onClick={() => handleSort("price")}>Price</th>
           <th onClick={() => handleSort("stock_level")}>Stock Level</th>
-          <th onClick={() => handleSort("expiration_date")}>Expiration Date</th>
-          <th>Action</th>
+          <th>Request</th>
         </tr>
       </thead>
       <tbody>
@@ -77,14 +76,11 @@ const GetItems = () => {
             <td>{item.category}</td>
             <td>{item.price}</td>
             <td>{item.stock_level}</td>
-            <td>{item.expiration_date || "LTU >= 3 years Usage"}</td>
-            <td>
-              <button
-                value={item.item_id}
-                onClick={(e) => handleRequestClick(e.target.value)}
-              >
-                Request
-              </button>
+            <td
+              value={item.item_id}
+              onClick={(e) => handleRequestClick(e.target.value)}
+            >
+              Request
             </td>
           </tr>
         ))}
@@ -97,4 +93,4 @@ const handleRequestClick = (id) => {
   console.log(id);
 };
 
-export default GetItems;
+export default GetItemsUser;

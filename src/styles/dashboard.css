@@ -107,7 +107,8 @@
   overflow: auto; /*Enable scrolling if content overflows*/
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-  padding: 1rem;
+  padding: 0 0 1rem 0;
+  /* padding-top: 0; */
 
   position: relative;
 }

@@ -52,7 +52,7 @@ const Account = ({ userId }) => {
         password: password,
       };
 
-      await api.put(`/users/${userId}`, updatedUser);
+      await api.put(`/users/self/${userId}`, updatedUser);
       setIsEditing(false);
     } catch (err) {
       console.error("Error updating user account information:", err);

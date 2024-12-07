@@ -2,11 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import "../../styles/LoginPage.css";
 import { AuthContext } from "../../contexts/AuthContext";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
+// import { removeToken } from "../../services/tokenService";
 
 function CredentialField() {
   const navigate = useNavigate();
-  const { login, user } = useContext(AuthContext); // Added user to the context
+  let { login, user } = useContext(AuthContext); // Added user to the context
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,11 +24,11 @@ function CredentialField() {
       await login(username, password);
 
       // Retrieve the token from local storage
-      const token = localStorage.getItem("token");
-      const decodedToken = jwtDecode(token); // Decode the token to get user details
+      // const token = localStorage.getItem("token");
+      // const decodedToken = jwtDecode(token); // Decode the token to get user details
 
       // Route based on the user's role
-      switch (decodedToken.role) {
+      switch (user.role) {
         case "user":
           navigate("/user");
           break;
@@ -80,7 +81,7 @@ function CredentialField() {
           navigate("/technician");
           break;
         default:
-          navigate("/about");
+          navigate("/");
           break;
       }
     }

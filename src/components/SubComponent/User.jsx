@@ -7,6 +7,8 @@ import Support from "./Support";
 import GetItems from "./GetItems";
 import Home from "./Home";
 import UsersList from "./UsersList";
+import GetItemsUser from "./GetItemsUser";
+import BackupSettings from "./BackupSettings.jsx";
 import { getUser, getUserID } from "../../services/userUtils";
 
 // components
@@ -81,4 +83,6 @@ export {
   Transfer,
   UsersByDepartments,
   UsersLists,
+  BackupSettings,
+  GetItemsUser,
 };
