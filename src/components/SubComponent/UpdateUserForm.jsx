@@ -61,6 +61,7 @@ const UpdateUserForm = ({ userId, onClose, onUpdate }) => {
 
   const handleRoleChange = (event) => {
     setRoleId(event.target.value);
+    console.log(roleId);
   };
 
   return (
@@ -121,12 +122,7 @@ const UpdateUserForm = ({ userId, onClose, onUpdate }) => {
       />
       <div>
         Roles
-        <select
-          id="roles"
-          name="roles"
-          value={roleId}
-          onChange={handleRoleChange}
-        >
+        <select onChange={handleRoleChange}>
           <option value="1" {...(roleId === "admin" ? { selected: true } : {})}>
             admin
           </option>
@@ -154,7 +150,7 @@ const UpdateUserForm = ({ userId, onClose, onUpdate }) => {
     </form>
   );
 };
-
+//updated
 UpdateUserForm.propTypes = {
   userId: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
