@@ -1,115 +1,53 @@
 import { useState, useEffect } from "react";
+import api from "../../services/api"; // Adjust the path as needed
 
-const BackupSettings = () => {
-  const [schedule, setSchedule] = useState("daily");
-  const [time, setTime] = useState("02:00");
-  const [retention, setRetention] = useState(30);
-  const [location, setLocation] = useState("local");
-  const [encryption, setEncryption] = useState(false);
-  const [compression, setCompression] = useState(true);
-  const [logs, setLogs] = useState([]);
+const SysSetting = () => {
+  const [backups, setBackups] = useState([]);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
-    // Fetch backup logs here
-    setLogs([]);
+    fetchBackups();
   }, []);
 
-  const handleScheduleChange = (e) => {
-    setSchedule(e.target.value);
+  const fetchBackups = async () => {
+    try {
+      const response = await api.get("/api/backups");
+      setBackups(response.data.backups);
+    } catch (error) {
+      console.error("Error fetching backups:", error);
+    }
   };
 
-  const handleTimeChange = (e) => {
-    setTime(e.target.value);
-  };
-
-  const handleRetentionChange = (e) => {
-    setRetention(e.target.value);
-  };
-
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
-  };
-
-  const handleEncryptionChange = (e) => {
-    setEncryption(e.target.checked);
-  };
-
-  const handleCompressionChange = (e) => {
-    setCompression(e.target.checked);
+  const handleBackup = async () => {
+    try {
+      const response = await api.post("/api/backup");
+      setStatus(response.data.message);
+      fetchBackups(); // Refresh the list of backups
+    } catch (error) {
+      console.error("Error triggering backup:", error);
+      setStatus("Failed to trigger backup");
+    }
   };
 
   return (
-    <div>
-      <h2>Backup Settings</h2>
-      <div>
-        <label>Backup Schedule:</label>
-        <select value={schedule} onChange={handleScheduleChange}>
-          <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-        </select>
-      </div>
-      <div>
-        <label>Backup Time:</label>
-        <input type="time" value={time} onChange={handleTimeChange} />
-      </div>
-      <div>
-        <label>Backup Retention (days):</label>
-        <input
-          type="number"
-          value={retention}
-          onChange={handleRetentionChange}
-        />
-      </div>
-      <div>
-        <label>Backup Location:</label>
-        <select value={location} onChange={handleLocationChange}>
-          <option value="local">Local</option>
-          <option value="remote">Remote</option>
-          <option value="external">External</option>
-        </select>
-      </div>
-      <div>
-        <label>Enable Encryption:</label>
-        <input
-          type="checkbox"
-          checked={encryption}
-          onChange={handleEncryptionChange}
-        />
-      </div>
-      <div>
-        <label>Enable Compression:</label>
-        <input
-          type="checkbox"
-          checked={compression}
-          onChange={handleCompressionChange}
-        />
-      </div>
-      <h3>Backup Logs</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Size</th>
-            <th>Duration</th>
-          </tr>
-        </thead>
-        <tbody>
-          {logs.map((log, index) => (
-            <tr key={index}>
-              <td>{log.date}</td>
-              <td>{log.type}</td>
-              <td>{log.status}</td>
-              <td>{log.size}</td>
-              <td>{log.duration}</td>
-            </tr>
+    <div className="sys--parent">
+      <div className="sys--col--1">
+        <h2>Database Backups</h2>
+        <button onClick={handleBackup}>Trigger Manual Backup</button>
+        {status && <p>{status}</p>}
+        <h2>Backup Files</h2>
+        <ul>
+          {backups.map((file, index) => (
+            <li key={index}>
+              <a href={`http://localhost:5000/api/backups/${file}`} download>
+                {file}
+              </a>
+            </li>
           ))}
-        </tbody>
-      </table>
+        </ul>
+      </div>
     </div>
   );
 };
 
-export default BackupSettings;
+export default SysSetting;

@@ -26,7 +26,7 @@ const UpdateUserForm = ({ userId, onClose, onUpdate }) => {
         setDepartmentId(user.department_id);
         setFirstName(user.first_name);
         setLastName(user.last_name);
-        setRoleId(user.role_id);
+        setRoleId(user.role_name);
       } catch (error) {
         console.error("Error fetching user details:", error);
       }
@@ -57,6 +57,10 @@ const UpdateUserForm = ({ userId, onClose, onUpdate }) => {
       console.error("Error updating user information:", error);
       alert("Error updating user information. Please try again.");
     }
+  };
+
+  const handleRoleChange = (event) => {
+    setRoleId(event.target.value);
   };
 
   return (
@@ -115,13 +119,37 @@ const UpdateUserForm = ({ userId, onClose, onUpdate }) => {
         placeholder="Last Name"
         required
       />
-      <input
-        type="text"
-        value={roleId}
-        onChange={(e) => setRoleId(e.target.value)}
-        placeholder="Role ID"
-        required
-      />
+      <div>
+        Roles
+        <select
+          id="roles"
+          name="roles"
+          value={roleId}
+          onChange={handleRoleChange}
+        >
+          <option value="1" {...(roleId === "admin" ? { selected: true } : {})}>
+            admin
+          </option>
+          <option
+            value="2"
+            {...(roleId === "manager" ? { selected: true } : {})}
+          >
+            manager
+          </option>
+          <option value="3" {...(roleId === "user" ? { selected: true } : {})}>
+            user
+          </option>
+          <option
+            value="4"
+            {...(roleId === "faculity" ? { selected: true } : {})}
+          >
+            faculity
+          </option>
+          <option value="5" {...(roleId === "staff" ? { selected: true } : {})}>
+            staff
+          </option>
+        </select>
+      </div>
       <button type="submit">Update User</button>
     </form>
   );
