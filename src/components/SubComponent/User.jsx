@@ -4,7 +4,7 @@ import UsersByDepartmentId from "./UsersByDepartmentId";
 import Transfers from "./Transfers";
 import Requests from "./RequestsUF.jsx";
 import Support from "./Support";
-import GetItems from "./GetItems";
+import GetItems from "./GetItemsStuff.jsx";
 import Home from "./Home";
 import UsersList from "./UsersList";
 import GetItemsUser from "./GetItemsUser";
@@ -13,7 +13,7 @@ import GetItemsFaculty from "./GetItemsFaculty.jsx";
 import RequestManager from "./RequestManager.jsx";
 import RequestStaff from "./RequestStaff.jsx";
 import ReceivedItems from "./ReceivedItems.jsx";
-import GetItemsStuff from "./GetItems.jsx";
+import GetItemsStuff from "./GetItemsStuff.jsx";
 import { getUser, getUserID } from "../../services/userUtils";
 
 // components

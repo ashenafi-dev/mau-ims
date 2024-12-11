@@ -39,7 +39,7 @@ const getComponentByMenuName = (menuName, userType, searchQuery) => {
       return <RequestManager />;
     case "requestStaff":
       return <RequestStaff />;
-    case "inventory":
+    case "userInventory":
       return <GetItemsUser searchQuery={searchQuery} />;
     case "staffInventory":
       return <GetItemsStuff searchQuery={searchQuery} />;
@@ -58,7 +58,7 @@ const getComponentByMenuName = (menuName, userType, searchQuery) => {
     case "usersF":
       return <UsersByDepartments />;
     case "users":
-      return userType === "admin" || userType === "faculty" ? (
+      return userType === "admin" || userType === "faculity" ? (
         <UsersLists />
       ) : (
         <UsersByDepartments />
@@ -73,7 +73,7 @@ const getComponentByMenuName = (menuName, userType, searchQuery) => {
 };
 
 export function Dashboard({ menu }) {
-  const [activeComponent, setActiveComponent] = useState(<Inventory />); // Default to Inventory component
+  const [activeComponent, setActiveComponent] = useState(); // Default to Inventory component
   const [user, setUser] = useState(getUser());
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
@@ -99,7 +99,7 @@ export function Dashboard({ menu }) {
       );
     } else if (user.role === "staff") {
       setActiveComponent(
-        getComponentByMenuName("dashboard", user.role, searchQuery)
+        getComponentByMenuName("staffInventory", user.role, searchQuery)
       );
     }
   }, [user.role, searchQuery]);
@@ -140,6 +140,10 @@ export function Dashboard({ menu }) {
       setActiveComponent(
         getComponentByMenuName("facultyInventory", user.role, query)
       );
+    } else if (user.role === "staff") {
+      setActiveComponent(
+        getComponentByMenuName("staffInventory", user.role, query)
+      );
     }
   };
 
@@ -175,7 +179,9 @@ export function Dashboard({ menu }) {
       </div>
       <div className="content">
         <div className="content--header">
-          {(user.role === "user" || user.role === "faculity") && (
+          {(user.role === "user" ||
+            user.role === "faculity" ||
+            user.role === "staff") && (
             <div className="group">
               <svg viewBox="0 0 24 24" aria-hidden="true" className="icon">
                 <g>

@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import api from "../../services/api"; // Adjust the path as needed
 import Modal from "./Modal";
-// import PropTypes from "prop-types";
 import NewItemForm from "./NewItemForm"; // Import the NewItemForm component
 import UpdateItemForm from "./UpdateItemForm"; // Import the UpdateItemForm component
 import { addItem, modify, remove } from "../Svg"; // Adjust the SVG imports as needed
 import "./getItems.css";
 
-const GetItems = () => {
+const GetItems = ({ searchQuery }) => {
+  // Accept searchQuery as prop
   const [items, setItems] = useState([]);
   const [sortedItems, setSortedItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,15 @@ const GetItems = () => {
   useEffect(() => {
     fetchItems();
   }, []);
+
+  useEffect(() => {
+    const filtered = items.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setSortedItems(filtered);
+  }, [searchQuery, items]); // Re-run when searchQuery or items changes
 
   const handleSort = (key) => {
     let direction = "asc";
@@ -150,6 +160,10 @@ const GetItems = () => {
       </table>
     </div>
   );
+};
+
+GetItems.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
 };
 
 export default GetItems;
