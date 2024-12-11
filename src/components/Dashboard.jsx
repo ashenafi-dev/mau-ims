@@ -7,6 +7,7 @@ import { profileImage } from "./Svg";
 import { jwtDecode } from "jwt-decode";
 import { AuthContext } from "../contexts/AuthContext";
 import { getUser } from "../services/userUtils";
+
 import {
   Accounts,
   Inventory,
@@ -19,11 +20,89 @@ import {
   Home,
   BackupSettings,
   GetItemsUser,
+  GetItemsFaculty,
+  RequestManager,
+  RequestStaff,
+  ReceivedItems,
+  GetItemsStuff,
 } from "./SubComponent/User";
+
+const getComponentByMenuName = (menuName, userType, searchQuery) => {
+  switch (menuName) {
+    case "dashboard":
+      return <Home />;
+    case "facultyInventory":
+      return <GetItemsFaculty searchQuery={searchQuery} />;
+    case "request":
+      return <Request />;
+    case "requestManager":
+      return <RequestManager />;
+    case "requestStaff":
+      return <RequestStaff />;
+    case "inventory":
+      return <GetItemsUser searchQuery={searchQuery} />;
+    case "staffInventory":
+      return <GetItemsStuff searchQuery={searchQuery} />;
+    case "system":
+      return <BackupSettings />;
+    case "transfer":
+      return <Transfer />;
+    case "receivedItems":
+      return <ReceivedItems />;
+    case "report":
+      return <Report />;
+    case "account":
+      return <Accounts />;
+    case "support":
+      return <Supports />;
+    case "usersF":
+      return <UsersByDepartments />;
+    case "users":
+      return userType === "admin" || userType === "faculty" ? (
+        <UsersLists />
+      ) : (
+        <UsersByDepartments />
+      );
+    default:
+      return (
+        <div>
+          {menuName} is not a valid menu list. Check the menus again. 😁
+        </div>
+      );
+  }
+};
 
 export function Dashboard({ menu }) {
   const [activeComponent, setActiveComponent] = useState(<Inventory />); // Default to Inventory component
   const [user, setUser] = useState(getUser());
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+
+  console.table(user);
+
+  useEffect(() => {
+    // Set the default component based on the user's role
+    if (user.role === "user") {
+      setActiveComponent(
+        getComponentByMenuName("userInventory", user.role, searchQuery)
+      );
+    } else if (user.role === "faculity") {
+      setActiveComponent(
+        getComponentByMenuName("facultyInventory", user.role, searchQuery)
+      );
+    } else if (user.role === "admin") {
+      setActiveComponent(
+        getComponentByMenuName("dashboard", user.role, searchQuery)
+      );
+    } else if (user.role === "manager") {
+      setActiveComponent(
+        getComponentByMenuName("dashboard", user.role, searchQuery)
+      );
+    } else if (user.role === "staff") {
+      setActiveComponent(
+        getComponentByMenuName("dashboard", user.role, searchQuery)
+      );
+    }
+  }, [user.role, searchQuery]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -37,66 +116,8 @@ export function Dashboard({ menu }) {
     console.log(menuName);
     console.log(userType);
 
-    let component = null;
-    switch (userType) {
-      case "user":
-        component = getComponentByMenuName(menuName, "user");
-        break;
-      case "staff":
-        component = getComponentByMenuName(menuName, "staff");
-        break;
-      case "admin":
-        component = getComponentByMenuName(menuName, "admin");
-        break;
-      case "technician":
-        component = getComponentByMenuName(menuName, "technician");
-        break;
-      case "manager":
-        component = getComponentByMenuName(menuName, "manager");
-        break;
-      case "faculity":
-        component = getComponentByMenuName(menuName, "faculity");
-        break;
-      default:
-        console.log("Incorrect user type");
-    }
-
+    let component = getComponentByMenuName(menuName, userType, searchQuery);
     setActiveComponent(component);
-  };
-
-  const getComponentByMenuName = (menuName, userType) => {
-    switch (menuName) {
-      case "dashboard":
-        return <Home />;
-      case "inventory":
-        return <Inventory />;
-      case "request":
-        return <Request />;
-      case "userInventory":
-        return <GetItemsUser />;
-      case "system":
-        return <BackupSettings />;
-      case "transfer":
-        return <Transfer />;
-      case "report":
-        return <Report />;
-      case "account":
-        return <Accounts />;
-      case "support":
-        return <Supports />;
-      case "users":
-        return userType === "admin" || userType === "faculity" ? (
-          <UsersLists />
-        ) : (
-          <UsersByDepartments />
-        );
-      default:
-        return (
-          <div>
-            {menuName} is not a valid menu list. Check the menus again. 😁
-          </div>
-        );
-    }
   };
 
   const { logout } = useContext(AuthContext);
@@ -105,6 +126,21 @@ export function Dashboard({ menu }) {
     logout();
     setUser(null); // Clear the user state on logout
     window.location.href = "/login"; // Redirect to login after logging out
+  };
+
+  const handleSearchChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    if (user.role === "user") {
+      setActiveComponent(
+        getComponentByMenuName("userInventory", user.role, query)
+      );
+    } else if (user.role === "faculity") {
+      setActiveComponent(
+        getComponentByMenuName("facultyInventory", user.role, query)
+      );
+    }
   };
 
   return (
@@ -139,6 +175,22 @@ export function Dashboard({ menu }) {
       </div>
       <div className="content">
         <div className="content--header">
+          {(user.role === "user" || user.role === "faculity") && (
+            <div className="group">
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="icon">
+                <g>
+                  <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+                </g>
+              </svg>
+              <input
+                className="input"
+                type="search"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+            </div>
+          )}
           <div className="profile">
             <button className="profile-btn">{profileImage}</button>
             <div>
@@ -147,6 +199,7 @@ export function Dashboard({ menu }) {
             </div>
           </div>
         </div>
+
         <div className="content--body">{activeComponent}</div>
       </div>
     </div>

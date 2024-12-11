@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import api from "../../services/api"; // Adjust the path as needed
 import { AuthContext } from "../../contexts/AuthContext";
 
-const GetItemsUser = ({ searchQuery }) => {
+const GetItemsFaculty = ({ searchQuery }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,7 +13,7 @@ const GetItemsUser = ({ searchQuery }) => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await api.get("/items/getItemsUser");
+        const response = await api.get("/items/getItemsFaculty");
         setItems(response.data);
         setLoading(false);
       } catch (err) {
@@ -95,8 +95,8 @@ const GetItemsUser = ({ searchQuery }) => {
   );
 };
 
-GetItemsUser.propTypes = {
+GetItemsFaculty.propTypes = {
   searchQuery: PropTypes.string.isRequired,
 };
 
-export default GetItemsUser;
+export default GetItemsFaculty;

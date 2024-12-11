@@ -14,7 +14,13 @@ const AuthProvider = ({ children }) => {
     const token = getToken();
     if (token) {
       const decoded = jwtDecode(token);
-      setUser({ token, role: decoded.role, username: decoded.username });
+      setUser({
+        token,
+        role: decoded.role,
+        username: decoded.username,
+        userId: decoded.userId,
+      });
+      console.table(decoded);
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
   }, []);
@@ -24,7 +30,12 @@ const AuthProvider = ({ children }) => {
     const { token } = response.data;
     setToken(token);
     const decoded = jwtDecode(token);
-    setUser({ token, role: decoded.role, username: decoded.username });
+    setUser({
+      token,
+      role: decoded.role,
+      username: decoded.username,
+      userId: decoded.userId,
+    });
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
 

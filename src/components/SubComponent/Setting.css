@@ -1,5 +1,55 @@
 .sys--parent {
   display: grid;
-  grid-template-columns: 25% 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
+}
+
+.sys--parent {
+  display: flex;
+}
+
+.sys--col--1,
+.sys--col--2 {
+  flex: 1;
+  margin: 10px;
+}
+
+.custom-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.custom-list-item {
+  display: flex;
+  align-items: center;
+}
+
+.custom-list-item a {
+  margin-right: 10px;
+}
+
+.custom-list-item button {
+  margin-left: auto;
+}
+
+.audit-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.audit-list-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.custom-bullet {
+  color: #2196f3;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.audit-list-item {
+  font-size: 12px;
+  font-style: italic;
 }

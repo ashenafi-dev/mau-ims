@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 function CredentialField() {
   const navigate = useNavigate();
-  let { login, user } = useContext(AuthContext); // Added user to the context
+  const { login, user } = useContext(AuthContext); // Added user to the context
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 

@@ -1,0 +1,54 @@
+.contact {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.contact-header h1 {
+  font-size: 2.5em;
+  color: #2196f3;
+}
+
+.contact-header p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.contact-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.contact-method {
+  background-color: #f3f3f4;
+  padding: 20px;
+  border-radius: 8px;
+  flex: 1;
+  margin: 10px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.contact-method h2 {
+  color: #2196f3;
+  margin-bottom: 10px;
+}
+
+.contact-method p,
+.contact-method address {
+  color: #666;
+}
+
+.social-media-links {
+  list-style-type: none;
+  padding: 0;
+}
+
+.social-media-links li {
+  margin: 5px 0;
+}

@@ -2,13 +2,18 @@ import "../../styles/User.css";
 import Account from "./Account";
 import UsersByDepartmentId from "./UsersByDepartmentId";
 import Transfers from "./Transfers";
-import Requests from "./Requests";
+import Requests from "./RequestsUF.jsx";
 import Support from "./Support";
 import GetItems from "./GetItems";
 import Home from "./Home";
 import UsersList from "./UsersList";
 import GetItemsUser from "./GetItemsUser";
-import BackupSettings from "./BackupSettings.jsx";
+import BackupSettings from "./Settings.jsx";
+import GetItemsFaculty from "./GetItemsFaculty.jsx";
+import RequestManager from "./RequestManager.jsx";
+import RequestStaff from "./RequestStaff.jsx";
+import ReceivedItems from "./ReceivedItems.jsx";
+import GetItemsStuff from "./GetItems.jsx";
 import { getUser, getUserID } from "../../services/userUtils";
 
 // components
@@ -85,4 +90,9 @@ export {
   UsersLists,
   BackupSettings,
   GetItemsUser,
+  GetItemsFaculty,
+  RequestManager,
+  RequestStaff,
+  ReceivedItems,
+  GetItemsStuff,
 };

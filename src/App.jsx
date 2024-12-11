@@ -15,7 +15,6 @@ import Manager from "./pages/Dashboards/Manager";
 import User from "./pages/Dashboards/User";
 import Staff from "./pages/Dashboards/Staff";
 import Faculity from "./pages/Dashboards/Faculity";
-import Technician from "./pages/Dashboards/Technician";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -71,12 +70,7 @@ function MainContent() {
             <ProtectedRoute component={Faculity} requiredRole="faculity" />
           }
         />
-        <Route
-          path="/technician"
-          element={
-            <ProtectedRoute component={Technician} requiredRole="technician" />
-          }
-        />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

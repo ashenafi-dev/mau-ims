@@ -41,6 +41,17 @@ const SysSetting = () => {
     }
   };
 
+  const handleDeleteBackup = async (filename) => {
+    try {
+      const response = await api.delete(`/api/backups/${filename}`);
+      setStatus(response.data.message);
+      fetchBackups(); // Refresh the list of backups
+    } catch (error) {
+      console.error("Error deleting backup:", error);
+      setStatus("Failed to delete backup");
+    }
+  };
+
   return (
     <div className="sys--parent">
       <div className="sys--col--1">
@@ -48,44 +59,29 @@ const SysSetting = () => {
         <button onClick={handleBackup}>Trigger Manual Backup</button>
         {status && <p>{status}</p>}
         <h2>Backup Files</h2>
-        <ul>
+        <ul className="custom-list">
           {backups.map((file, index) => (
-            <li key={index}>
+            <li key={index} className="custom-list-item">
               <a href={`http://localhost:5000/api/backups/${file}`} download>
                 {file}
               </a>
+              <button onClick={() => handleDeleteBackup(file)}>Delete</button>
             </li>
           ))}
         </ul>
       </div>
       <div className="sys--col--2">
         <h2>Audit Logs</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Audit ID</th>
-              <th>Table Name</th>
-              <th>Record ID</th>
-              <th>Change Type</th>
-              <th>Change Details</th>
-              <th>Changed By</th>
-              <th>Change Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {auditLogs.map((log) => (
-              <tr key={log.audit_id}>
-                <td>{log.audit_id}</td>
-                <td>{log.table_name}</td>
-                <td>{log.record_id}</td>
-                <td>{log.change_type}</td>
-                <td>{log.change_details}</td>
-                <td>{log.changed_by}</td>
-                <td>{log.change_date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ul className="audit-list">
+          {auditLogs.map((log) => (
+            <li key={log.audit_id} className="audit-list-item">
+              <span className="custom-bullet">•</span>
+              In {log.table_name} table, {log.changed_by} modified record ID{" "}
+              {log.record_id} by performing a {log.change_type} This change was
+              made on {log.change_date}.
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

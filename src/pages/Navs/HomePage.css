@@ -1,0 +1,96 @@
+.home {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.home-header {
+  text-align: center;
+  background-color: #f3f3f4;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.home-header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  color: #2196f3;
+}
+
+.home-header p {
+  margin: 10px 0 20px;
+  font-size: 1.2em;
+}
+
+.home-nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #2196f3;
+  font-weight: bold;
+}
+
+.home-overview {
+  margin-bottom: 20px;
+}
+
+.home-overview h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.key-points {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.key-point {
+  background-color: #f3f3f4;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  flex: 1;
+  margin: 10px;
+  max-width: 300px;
+}
+
+.key-point-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.key-point h3 {
+  margin: 15px 0;
+  color: #2196f3;
+}
+
+.key-point p {
+  color: #666;
+}
+
+.home-graphics {
+  margin-bottom: 20px;
+}
+
+.home-graphics h2 {
+  color: #333;
+  text-align: center;
+}
+
+.charts {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.chart {
+  text-align: center;
+  flex: 1;
+  margin: 10px;
+}
+
+.chart img {
+  max-width: 100%;
+  border-radius: 8px;
+}

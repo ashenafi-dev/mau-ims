@@ -1,5 +1,6 @@
 .remove,
 .modify,
+.addItem,
 .addUser {
   height: 1.5rem;
   width: 100%;
@@ -13,12 +14,14 @@
 
 .modify:hover,
 .remove:hover,
+.addItem:hover,
 .addUser:hover {
   scale: 1.1;
 }
 
 .modify:active,
 .addUser:active,
+.addItem:active,
 .remove:active {
   scale: 1;
   box-shadow: none;
@@ -32,6 +35,11 @@
 }
 
 .addUser {
+  color: rgb(129, 127, 20);
+  width: 100%;
+  height: 2rem;
+}
+.addItem {
   color: rgb(129, 127, 20);
   width: 100%;
   height: 2rem;
