@@ -10,13 +10,11 @@ import { getUser } from "../services/userUtils";
 
 import {
   Accounts,
-  Inventory,
   Report,
   Request,
   Transfer,
   Supports,
   UsersByDepartments,
-  UsersLists,
   Home,
   BackupSettings,
   GetItemsUser,
@@ -25,18 +23,21 @@ import {
   RequestStaff,
   ReceivedItems,
   GetItemsStuff,
+  UsersListAdmin,
 } from "./SubComponent/User";
 
 const getComponentByMenuName = (menuName, userType, searchQuery) => {
   switch (menuName) {
     case "dashboard":
       return <Home />;
+    case "usersA":
+      return <UsersListAdmin searchQuery={searchQuery} />;
     case "facultyInventory":
       return <GetItemsFaculty searchQuery={searchQuery} />;
     case "request":
       return <Request />;
     case "requestManager":
-      return <RequestManager />;
+      return <RequestManager searchQuery={searchQuery} />;
     case "requestStaff":
       return <RequestStaff />;
     case "userInventory":
@@ -57,12 +58,6 @@ const getComponentByMenuName = (menuName, userType, searchQuery) => {
       return <Supports />;
     case "usersF":
       return <UsersByDepartments />;
-    case "users":
-      return userType === "admin" || userType === "faculity" ? (
-        <UsersLists />
-      ) : (
-        <UsersByDepartments />
-      );
     default:
       return (
         <div>
@@ -91,7 +86,7 @@ export function Dashboard({ menu }) {
       );
     } else if (user.role === "admin") {
       setActiveComponent(
-        getComponentByMenuName("dashboard", user.role, searchQuery)
+        getComponentByMenuName("usersA", user.role, searchQuery)
       );
     } else if (user.role === "manager") {
       setActiveComponent(
@@ -144,6 +139,12 @@ export function Dashboard({ menu }) {
       setActiveComponent(
         getComponentByMenuName("staffInventory", user.role, query)
       );
+    } else if (user.role === "admin") {
+      setActiveComponent(getComponentByMenuName("usersA", user.role, query));
+    } else if (user.role === "manager") {
+      setActiveComponent(
+        getComponentByMenuName("requestManager", user.role, query)
+      );
     }
   };
 
@@ -179,9 +180,7 @@ export function Dashboard({ menu }) {
       </div>
       <div className="content">
         <div className="content--header">
-          {(user.role === "user" ||
-            user.role === "faculity" ||
-            user.role === "staff") && (
+          {user.role != "manager" && (
             <div className="group">
               <svg viewBox="0 0 24 24" aria-hidden="true" className="icon">
                 <g>

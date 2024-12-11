@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import api from "../../services/api"; // Adjust the path as needed
 import Modal from "./Modal";
 import NewUserForm from "./NewUserForm"; // Import the NewUserForm component
 import UpdateUserForm from "./UpdateUserForm"; // Import the UpdateUserForm component
-import { addUser, modify, remove } from "../Svg";
+import { addUser, modify, remove } from "../Svg"; // Adjust the SVG imports as needed
 
-const UsersList = () => {
+const UsersListAdmin = ({ searchQuery }) => {
   const [users, setUsers] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,6 +33,17 @@ const UsersList = () => {
     fetchUsers();
   }, []);
 
+  useEffect(() => {
+    const filtered = users.filter(
+      (user) =>
+        user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.last_name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setSortedUsers(filtered);
+  }, [searchQuery, users]); // Re-run when searchQuery or users changes
+
   const handleSort = (key) => {
     let direction = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc") {
@@ -39,7 +51,7 @@ const UsersList = () => {
     }
     setSortConfig({ key, direction });
 
-    const sorted = [...users].sort((a, b) => {
+    const sorted = [...sortedUsers].sort((a, b) => {
       if (a[key] < b[key]) {
         return direction === "asc" ? -1 : 1;
       }
@@ -59,7 +71,7 @@ const UsersList = () => {
       alert(`User with ID ${userId} deleted successfully`);
     } catch (err) {
       console.error("Error deleting user:", err);
-      alert("Error deleting user. Please try again.");
+      alert(`Error deleting user. Please try again.`);
     }
   };
 
@@ -151,4 +163,8 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+UsersListAdmin.propTypes = {
+  searchQuery: PropTypes.string,
+};
+
+export default UsersListAdmin;

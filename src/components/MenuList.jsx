@@ -30,14 +30,13 @@ const staffMenuList = [
 
 const adminMenuList = [
   { icon: dashboard, name: "dashboard", id: "dashboard" },
-  { icon: users, name: "users", id: "users" },
+  { icon: users, name: "users", id: "usersA" },
   { icon: system, name: "system", id: "system" },
   { icon: profile, name: "account", id: "account" },
   { icon: support, name: "support", id: "support" },
 ];
 
 const managerMenuList = [
-  { icon: dashboard, name: "dashboard", id: "dashboard" },
   { icon: home, name: "inventory", id: "inventory" },
   { icon: request, name: "Request", id: "requestManager" },
   { icon: report, name: "Reports", id: "Reports" },

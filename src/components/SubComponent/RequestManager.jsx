@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import api from "../../services/api"; // Adjust the path as needed
 
 const RequestManager = () => {
@@ -6,27 +6,33 @@ const RequestManager = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchRequests = useCallback(async () => {
-    try {
-      const response = await api.get("/requests/pending");
-      console.log("Fetched Requests:", response.data); // Debug log
-      setRequests(response.data);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error fetching requests:", err);
-      setError(err);
-      setLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
+    const fetchRequests = async () => {
+      try {
+        const response = await api.get("/requests/pending");
+        console.log("Fetched Requests:", response.data); // Debug log
+        setRequests(response.data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching requests:", err);
+        setError(err);
+        setLoading(false);
+      }
+    };
+
     fetchRequests();
-  }, [fetchRequests]);
+  }, []);
 
   const handleUpdateRequestStatus = async (requestId, status) => {
     try {
       await api.put(`/requests/${requestId}`, { request_status: status });
-      fetchRequests(); // Refresh the list of requests after updating the status
+      setRequests(
+        requests.map((request) =>
+          request.request_id === requestId
+            ? { ...request, request_status: status }
+            : request
+        )
+      );
     } catch (err) {
       console.error(`Error updating request status to ${status}:`, err);
       setError(err);

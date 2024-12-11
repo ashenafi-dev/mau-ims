@@ -6,7 +6,7 @@ import Requests from "./RequestsUF.jsx";
 import Support from "./Support";
 import GetItems from "./GetItemsStuff.jsx";
 import Home from "./Home";
-import UsersList from "./UsersList";
+import UsersList from "./UsersListAdmin.jsx";
 import GetItemsUser from "./GetItemsUser";
 import BackupSettings from "./Settings.jsx";
 import GetItemsFaculty from "./GetItemsFaculty.jsx";
@@ -14,6 +14,7 @@ import RequestManager from "./RequestManager.jsx";
 import RequestStaff from "./RequestStaff.jsx";
 import ReceivedItems from "./ReceivedItems.jsx";
 import GetItemsStuff from "./GetItemsStuff.jsx";
+import UsersListAdmin from "./UsersListAdmin.jsx";
 import { getUser, getUserID } from "../../services/userUtils";
 
 // components
@@ -95,4 +96,5 @@ export {
   RequestStaff,
   ReceivedItems,
   GetItemsStuff,
+  UsersListAdmin,
 };
