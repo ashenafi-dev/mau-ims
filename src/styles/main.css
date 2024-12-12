@@ -11,7 +11,13 @@
 :root {
   /* Restrict the maximum width and center the content */
   max-width: 1444px;
+  height: 97.5vh;
   margin: 0 auto;
+
+  /* border: 2px dotted gray; */
+
+  overflow: scroll;
+  scrollbar-width: none;
 
   /* Apply font and color styles */
   font-family: "Quicksand", sans-serif;

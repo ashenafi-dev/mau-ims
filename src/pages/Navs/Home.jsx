@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "./HomePage.css";
 
 const securityIcon = (
@@ -8,7 +7,7 @@ const securityIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="size-4"
+    className="key-icon"
   >
     <path
       strokeLinecap="round"
@@ -25,7 +24,7 @@ const inventoryIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="size-6"
+    className="key-icon"
   >
     <path
       strokeLinecap="round"
@@ -34,6 +33,7 @@ const inventoryIcon = (
     />
   </svg>
 );
+
 const efficiencyIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ const efficiencyIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="size-6"
+    className="key-icon"
   >
     <path
       strokeLinecap="round"
@@ -50,6 +50,7 @@ const efficiencyIcon = (
     />
   </svg>
 );
+
 const analyticsIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +58,7 @@ const analyticsIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="size-6"
+    className="key-icon"
   >
     <path
       strokeLinecap="round"
@@ -71,17 +72,18 @@ const analyticsIcon = (
     />
   </svg>
 );
+
 // Sample data for key points
 const keyPoints = [
   {
     icon: inventoryIcon,
-    title: "Real-Time Inventory Tracking",
+    title: "Real-Time Inventory",
     description:
       "Keep track of your inventory in real-time, ensuring accurate stock levels and preventing overstocking or stockouts.",
   },
   {
     icon: efficiencyIcon,
-    title: "Enhanced Operational Efficiency",
+    title: "Operational Efficiency",
     description:
       "Automate and streamline inventory management processes to save time and reduce human errors.",
   },
@@ -103,18 +105,9 @@ const HomePage = () => {
   return (
     <div className="home">
       <header className="home-header">
-        <h1>Welcome to the Inventory Management System</h1>
-        <p>Manage your inventory efficiently and effortlessly.</p>
-        <nav className="home-nav">
-          <Link to="/inventory">Inventory</Link>
-          <Link to="/requests">Requests</Link>
-          <Link to="/reports">Reports</Link>
-          <Link to="/settings">Settings</Link>
-        </nav>
+        <h1>Welcome to MAU Inventory Management System</h1>
       </header>
-
       <section className="home-overview">
-        <h2>Why Choose Our Inventory Management System?</h2>
         <div className="key-points">
           {keyPoints.map((point, index) => (
             <div className="key-point" key={index}>
@@ -123,20 +116,6 @@ const HomePage = () => {
               <p>{point.description}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="home-graphics">
-        <h2>Analytics and Reports</h2>
-        <div className="charts">
-          <div className="chart">
-            <img src="chart1.png" alt="Chart 1" />
-            <p>Inventory Distribution</p>
-          </div>
-          <div className="chart">
-            <img src="chart2.png" alt="Chart 2" />
-            <p>Request Trends</p>
-          </div>
         </div>
       </section>
     </div>

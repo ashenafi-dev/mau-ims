@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import logo from "../assets/logo.png";
 import "../styles/Header.css";
@@ -16,9 +16,9 @@ function Header() {
 function Logo() {
   return (
     <div className="logo">
-      <Link to="/">
+      <NavLink to="/">
         <img src={logo} alt="Logo" />
-      </Link>
+      </NavLink>
     </div>
   );
 }
@@ -27,18 +27,18 @@ function NavBar() {
   return (
     <>
       <ul className="navbar">
-        <Link to="/">
+        <NavLink to="/" activeClassName="active">
           <li>home</li>
-        </Link>
-        <Link to="/contact-us">
+        </NavLink>
+        <NavLink to="/contact-us" activeClassName="active">
           <li>contact-us</li>
-        </Link>
-        <Link to="/about">
+        </NavLink>
+        <NavLink to="/about" activeClassName="active">
           <li>about</li>
-        </Link>
-        <Link to="/login">
+        </NavLink>
+        <NavLink to="/login" activeClassName="active">
           <li>login</li>
-        </Link>
+        </NavLink>
       </ul>
     </>
   );
@@ -59,4 +59,5 @@ function Theme() {
     </div>
   );
 }
+
 export default Header;

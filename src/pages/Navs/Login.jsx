@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import "../../styles/LoginPage.css";
 import { AuthContext } from "../../contexts/AuthContext";
+import "../../styles/Login.css";
 // import { jwtDecode } from "jwt-decode";
 // import { removeToken } from "../../services/tokenService";
 
