@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import api from "../../services/api"; // Adjust the path as needed
 
 const UpdateItemForm = ({ itemId, onClose, onUpdate }) => {
+  console.log(onClose);
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Durable");
   const [price, setPrice] = useState("");
   const [stockLevel, setStockLevel] = useState("");
-  const [expirationDate, setExpirationDate] = useState("");
   const [eligibilityTag, setEligibilityTag] = useState("");
   const [mediaUrl, setMediaUrl] = useState("");
   const [measurmentUnit, setMeasurmentUnit] = useState("");
@@ -25,9 +25,6 @@ const UpdateItemForm = ({ itemId, onClose, onUpdate }) => {
         setCategory(item.category);
         setPrice(item.price);
         setStockLevel(item.stock_level);
-        setExpirationDate(
-          item.expiration_date ? item.expiration_date.split("T")[0] : ""
-        );
         setEligibilityTag(item.eligibility_tag);
         setMediaUrl(item.media_url);
         setMeasurmentUnit(item.measurment_unit);
@@ -42,27 +39,15 @@ const UpdateItemForm = ({ itemId, onClose, onUpdate }) => {
     fetchItem();
   }, [itemId]);
 
-  const formatDate = (dateString) => {
-    if (!dateString) return null;
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const formattedExpirationDate =
-        category === "Durable" ? null : formatDate(expirationDate);
       await api.put(`/items/items/${itemId}`, {
         name: itemName,
         description,
         category,
         price,
         stock_level: stockLevel,
-        expiration_date: formattedExpirationDate,
         eligibility_tag: eligibilityTag,
         media_url: mediaUrl,
         measurment_unit: measurmentUnit,
@@ -127,16 +112,6 @@ const UpdateItemForm = ({ itemId, onClose, onUpdate }) => {
           required
         />
       </div>
-      {category !== "Durable" && (
-        <div>
-          <label>Expiration Date:</label>
-          <input
-            type="date"
-            value={expirationDate}
-            onChange={(e) => setExpirationDate(e.target.value)}
-          />
-        </div>
-      )}
       <div>
         <label>Eligibility Tag:</label>
         <input

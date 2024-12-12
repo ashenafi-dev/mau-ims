@@ -13,8 +13,13 @@ const RequestStaff = () => {
       setRequests(response.data);
       setLoading(false);
     } catch (err) {
-      console.error("Error fetching approved requests:", err);
-      setError(err);
+      if (err.response && err.response.status === 404) {
+        console.log("No approved requests at the moment."); // Debug log
+        setRequests([]);
+      } else {
+        console.error("Error fetching approved requests:", err);
+        setError(err);
+      }
       setLoading(false);
     }
   }, []);
@@ -25,10 +30,13 @@ const RequestStaff = () => {
 
   const handleProceedRequest = async (requestId) => {
     try {
-      await api.put(`/requests/staff/${requestId}`, {
+      await api.put(`/requests/requests/${requestId}`, {
         request_status: "Received",
       });
-      fetchApprovedRequests(); // Refresh the list of requests after updating the status
+      // Update the state to reflect the change immediately
+      setRequests((prevRequests) =>
+        prevRequests.filter((request) => request.request_id !== requestId)
+      );
     } catch (err) {
       console.error("Error updating request status to 'Received':", err);
       setError(err);
@@ -45,45 +53,52 @@ const RequestStaff = () => {
 
   return (
     <div>
-      <h1>Manage Approved Requests</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Request Date</th>
-            <th>Quantity</th>
-            <th>Status</th>
-            <th>Item Name</th>
-            <th>Item Description</th>
-            <th>Item Category</th>
-            <th>Item Price</th>
-            <th>Item Stock Level</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requests.map((request, index) => (
-            <tr key={index}>
-              <td>{new Date(request.request_date).toLocaleDateString()}</td>
-              <td>{request.quantity}</td>
-              <td>{request.request_status}</td>
-              <td>{request.item_name}</td>
-              <td>{request.item_description}</td>
-              <td>{request.item_category}</td>
-              <td>${request.item_price}</td>
-              <td>{request.item_stock_level}</td>
-              <td>
-                {request.request_status === "Approved" && (
-                  <button
-                    onClick={() => handleProceedRequest(request.request_id)}
-                  >
-                    Proceed
-                  </button>
-                )}
-              </td>
+      {requests.length === 0 ? (
+        <p>No approved requests at the moment.</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Request Date</th>
+              <th>Quantity</th>
+              <th>Status</th>
+              <th>Item Name</th>
+              <th>Item Description</th>
+              <th>Requested By</th>
+              <th>Item Price</th>
+              <th>Item Stock Level</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {requests.map((request, index) => (
+              <tr key={index}>
+                <td>{new Date(request.request_date).toLocaleDateString()}</td>
+                <td>{request.quantity}</td>
+                <td>{request.request_status}</td>
+                <td>{request.item_name}</td>
+                <td>{request.item_description}</td>
+                <td>
+                  {request.requester_first_name +
+                    " " +
+                    request.requester_last_name}
+                </td>
+                <td>${request.item_price}</td>
+                <td>{request.item_stock_level}</td>
+                <td>
+                  {request.request_status === "Approved" && (
+                    <button
+                      onClick={() => handleProceedRequest(request.request_id)}
+                    >
+                      Proceed
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

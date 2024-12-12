@@ -12,7 +12,6 @@ import {
   Accounts,
   Report,
   Request,
-  Transfer,
   Supports,
   UsersByDepartments,
   Home,
@@ -24,6 +23,8 @@ import {
   ReceivedItems,
   GetItemsStuff,
   UsersListAdmin,
+  TransferUser,
+  TransferStaff,
 } from "./SubComponent/User";
 
 const getComponentByMenuName = (menuName, userType, searchQuery) => {
@@ -46,8 +47,10 @@ const getComponentByMenuName = (menuName, userType, searchQuery) => {
       return <GetItemsStuff searchQuery={searchQuery} />;
     case "system":
       return <BackupSettings />;
-    case "transfer":
-      return <Transfer />;
+    case "stafftransfer":
+      return <TransferStaff />;
+    case "transferUser":
+      return <TransferUser />;
     case "receivedItems":
       return <ReceivedItems />;
     case "report":
@@ -90,7 +93,7 @@ export function Dashboard({ menu }) {
       );
     } else if (user.role === "manager") {
       setActiveComponent(
-        getComponentByMenuName("dashboard", user.role, searchQuery)
+        getComponentByMenuName("requestManager", user.role, searchQuery)
       );
     } else if (user.role === "staff") {
       setActiveComponent(

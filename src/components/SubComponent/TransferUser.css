@@ -1,0 +1,108 @@
+/* TransferUser.css */
+
+.transfer-user {
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: auto;
+}
+
+.transfer-user h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.transfer-user ul {
+  list-style: none;
+  padding: 0;
+}
+
+.transfer-user li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.transfer-user button {
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.transfer-user button:hover {
+  background-color: #357ab8;
+}
+
+.initiate-transfer {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.initiate-transfer button {
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.initiate-transfer button:hover {
+  background-color: #357ab8;
+}
+
+/* StaffTransfer.css */
+
+.staff-transfer {
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: auto;
+}
+
+.staff-transfer h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.staff-transfer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.staff-transfer li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.staff-transfer button {
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.staff-transfer button:hover {
+  background-color: #357ab8;
+}

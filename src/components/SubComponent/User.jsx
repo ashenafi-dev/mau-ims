@@ -15,6 +15,8 @@ import RequestStaff from "./RequestStaff.jsx";
 import ReceivedItems from "./ReceivedItems.jsx";
 import GetItemsStuff from "./GetItemsStuff.jsx";
 import UsersListAdmin from "./UsersListAdmin.jsx";
+import TransferUser from "./TransferUser.jsx";
+import TransferStaff from "./TransferStaff.jsx";
 import { getUser, getUserID } from "../../services/userUtils";
 
 // components
@@ -97,4 +99,6 @@ export {
   ReceivedItems,
   GetItemsStuff,
   UsersListAdmin,
+  TransferUser,
+  TransferStaff,
 };

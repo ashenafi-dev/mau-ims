@@ -26,6 +26,18 @@ const ReceivedItems = () => {
     fetchReceivedItems();
   }, [userId]);
 
+  const handleRemoveItem = async (itemId) => {
+    try {
+      await api.delete(`/items/${itemId}`);
+      setItems((prevItems) =>
+        prevItems.filter((item) => item.user_item_id !== itemId)
+      );
+    } catch (err) {
+      console.error("Error removing item:", err);
+      setError(err);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -36,7 +48,6 @@ const ReceivedItems = () => {
 
   return (
     <div>
-      <h1>Received Items</h1>
       <table>
         <thead>
           <tr>
@@ -49,6 +60,7 @@ const ReceivedItems = () => {
             <th>Measurement Unit</th>
             <th>Manufacturer</th>
             <th>Model Number</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -63,6 +75,11 @@ const ReceivedItems = () => {
               <td>{item.measurment_unit}</td>
               <td>{item.manufacturer}</td>
               <td>{item.model_number}</td>
+              <td>
+                <button onClick={() => handleRemoveItem(item.user_item_id)}>
+                  Remove
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

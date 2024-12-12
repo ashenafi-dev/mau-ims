@@ -48,7 +48,6 @@ const Requests = () => {
 
   return (
     <div>
-      <h1>User Requests</h1>
       <table>
         <thead>
           <tr>
@@ -60,8 +59,6 @@ const Requests = () => {
             <th>Item Category</th>
             <th>Item Price</th>
             <th>Item Stock Level</th>
-            <th>Approved By</th>
-            <th>Approval Date</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -76,12 +73,6 @@ const Requests = () => {
               <td>{request.item_category}</td>
               <td>${request.item_price}</td>
               <td>{request.item_stock_level}</td>
-              <td>{request.approved_by_username || "N/A"}</td>
-              <td>
-                {request.approval_date
-                  ? new Date(request.approval_date).toLocaleDateString()
-                  : "N/A"}
-              </td>
               <td>
                 <button onClick={() => handleRemoveRequest(request.request_id)}>
                   Remove
